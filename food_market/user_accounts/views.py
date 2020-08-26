@@ -15,6 +15,14 @@ def get_random_string(length):
     letters = string.ascii_letters
     return ''.join(choice(letters) for i in range(length))
 
+def update_verification():
+    users_verifications = Verification.objects.all()
+    new_date = datetime.utcnow()
+    for user_verification in users_verifications:
+        if user_verification.date.year <= new_date.year and user_verification.date.month <= new_date.month and user_verification.date.day <= new_date.day:
+            user_account = User.objects.get(username=user_verification.username)
+            user_account.delete()
+
 # Create your views here.
 def index(requests):
     return render(requests, 'main/index.html')
@@ -39,13 +47,20 @@ def auth_register(requests):
                             verify = Verification.objects.create(username=user, date=date)
                             token = get_random_string(16)
                             verify.token = make_password(token)
+                            
+
+                            sent = False
+                            while not sent:
+                                message = emails.html(html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
+                                    subject="Verify your account",
+                                    mail_from=('Localhost', 'localhost@localhost.com'))
+                                r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
+                                print(r.status_code, token)
+                                if r.status_code == 250:
+                                    sent= True
+
                             user.save() 
                             verify.save()
-
-                            message = emails.html(html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
-                                subject="Verify your account",
-                                mail_from=('Localhost', 'localhost@localhost.com'))
-                            r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
                             return redirect('login')
                         else:
                             context['message'] = 'Passwords length is to less.'
@@ -61,13 +76,9 @@ def auth_register(requests):
 
 def verify(requests):
     context = {'verified': False}
-    users_verifications = Verification.objects.all()
-    new_date = datetime.utcnow()
-    for user_verification in users_verifications:
-        if user_verification.date.year <= new_date.year and user_verification.date.month <= new_date.month and user_verification.date.day <= new_date.day:
-            user_account = User.objects.get(username=user_verification.username)
-            user_account.delete()
 
+    update_verification()
+    
     try:
         username = requests.GET['username']
         token = requests.GET['token']
