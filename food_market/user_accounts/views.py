@@ -1,40 +1,106 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password, check_password
+from django.core.mail import EmailMessage
+
+from user_accounts.models import Verification
+
+from datetime import datetime
+from random import choice
+import string
+import emails
+
+def get_random_string(length):
+    letters = string.ascii_letters
+    return ''.join(choice(letters) for i in range(length))
 
 # Create your views here.
 def index(requests):
-#     if requests.user.is_authenticated:
-#         print(requests.user.username, requests.user.password)
     return render(requests, 'main/index.html')
 
 def auth_register(requests):
-    if requests.method == 'POST':
-        form = UserCreationForm(requests.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(requests, user)
-            return redirect('main')
-
-    return render(requests, 'registration/register.html')
-
-def auth_login(requests):
+    context = {'message': None}
     if requests.method == 'POST':
         username = requests.POST['username']
-        password = requests.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(requests, user)
-            return redirect('main')
+        password1 = requests.POST['password1']
+        password2 = requests.POST['password2']
+        email = requests.POST['email']
+        if not (username == '' or password1 == '' or password2 == '' or email == ''):
+            if not User.objects.filter(username=username).exists():
+                if not User.objects.filter(email=email).exists():
+                    if password1 == password2:
+                        if len(password1) >= 8:
+                            user = User.objects.create_user(username=username, email=email)
+                            user.set_password(password1)
+                            user.is_active = False
+                            date = datetime.utcnow()
+                            date = datetime(date.year, date.month, date.day + 1)
+                            verify = Verification.objects.create(username=user, date=date)
+                            token = get_random_string(16)
+                            verify.token = make_password(token)
+                            user.save() 
+                            verify.save()
 
-    return render(requests, 'registration/login.html')
+                            message = emails.html(html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
+                                subject="Verify your account",
+                                mail_from=('Localhost', 'localhost@localhost.com'))
+                            r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
+                            return redirect('login')
+                        else:
+                            context['message'] = 'Passwords length is to less.'
+                    else:
+                        context['message'] = 'Passwords must be same.'
+                else:
+                    context['message'] = 'Email already exists.'
+            else:
+                context['message'] = 'Username already exists.'
+        else:
+            context['message'] = 'Write something to the fields.'
+    return render(requests, 'accounts/register.html', context=context)
+
+def verify(requests):
+    context = {'verified': False}
+    users_verifications = Verification.objects.all()
+    new_date = datetime.utcnow()
+    for user_verification in users_verifications:
+        if user_verification.date.year <= new_date.year and user_verification.date.month <= new_date.month and user_verification.date.day <= new_date.day:
+            user_account = User.objects.get(username=user_verification.username)
+            user_account.delete()
+
+    try:
+        username = requests.GET['username']
+        token = requests.GET['token']
+        user = User.objects.get(username=username)
+        verify = Verification.objects.get(username=user)
+        if check_password(token, verify.token):
+            verify.delete()
+            user.is_active = True
+            user.save()
+            context['verified'] = True
+    except:
+        pass
+    return render(requests, 'accounts/verify.html', context=context)
+
+def auth_login(requests):
+    context = {'message': None}
+    if requests.method == 'POST':
+        if requests.POST['username'] == '' or requests.POST['password'] == '':
+            context['message'] = 'Write something to the fields.'
+        else:
+            username = requests.POST['username']
+            password = requests.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(requests, user)
+                return redirect('main')
+            else:
+                context['message'] = 'Wrong username or password.'
+
+    return render(requests, 'accounts/login.html', context=context)
 
 def auth_logout(requests):
     if requests.user.is_authenticated:
         logout(requests)
-        return redirect('main')
-    return render(requests, 'registration/logout.html')
+        return render(requests, 'accounts/logout.html')
+    return redirect('main')

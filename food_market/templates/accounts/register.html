@@ -7,12 +7,15 @@
     <title>Register</title>
 </head>
 <body>
+    {% if message %}
+    <h1>{{ message }}</h1>
+    {%  endif %}
     <form action="{% url 'register' %}" method="POST">
         {% csrf_token %}
-        
         <p>Username: <input type="text" name="username" maxlength="150"></p>
         <p>Password: <input type="password" name="password1"></p>
         <p>Password confirm: <input type="password" name="password2"></p>
+        <p>Email: <input type="email" name="email"></p>
         <input type="submit" value="Register">
     </form>
 </body>

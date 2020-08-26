@@ -10,13 +10,19 @@ header {
     padding-top: 20px;
 }
 
-header div {
+.header_div {
     display: inline-block;
     margin-left: 20px;
     margin-right: 20px;
 }
 
-header div a {
+.header_a {
+    color: greenyellow;
+    font-size: 36px;
+}
+
+.header_p {
+    display: inline;
     color: greenyellow;
     font-size: 36px;
 }
