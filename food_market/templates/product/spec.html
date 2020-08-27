@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+</head>
+<body>
+    <h1>{{ product.title }}</h1>
+    <img src="{{ MEDIA_URL }}{{ product.image }}" width="200">
+    <p>{{ product.description }}</p>
+    <a href="{% url 'all_products' %}" class="products">
+        To main page
+    </a>
+</body>
+</html>

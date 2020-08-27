@@ -4,15 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Accounts</title>
 </head>
 <body>
     {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}</p>
-    <a href="{% url 'logout' %}">Logout</a>
+    <h1>Hello, {{ user.username }}</h1>
+    <a href="{% url 'logout' %}"><h1>Logout</h1></a>
     {% else %}
-        <a href="{% url 'login' %}">Login</a> or 
-        <a href="{% url 'register' %}">Register</a>
+    <h1><a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a></h1>
     {% endif %}
 </body>
 </html>
