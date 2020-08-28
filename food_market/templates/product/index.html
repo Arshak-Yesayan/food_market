@@ -9,7 +9,7 @@
 </head>
 <body>
     {% for product in products %}
-        <a href="{{ product.slug }}" class="products">
+        <a href="{{ product.title }}" class="products">
             <h3>{{ product.title }}</h3>
             <img src="{{ MEDIA_URL }}{{ product.image }}" width="200px">
             <p>{{ product.description }}</p>
