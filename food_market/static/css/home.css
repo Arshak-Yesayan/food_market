@@ -121,13 +121,13 @@ body{
     border-radius: 3px;
     margin-left: 0;
 }
-#pizdec{
+#chgidem{
     border-radius: 5px;
     height: 20px;
     font-size: 15px;
 
 }
-.pizdec{
+.chgidem{
     color: orange;
     margin-left: auto;
     padding-right: 5px;
@@ -163,64 +163,73 @@ body{
 
 }
 /*part of slider */
-.all_slider_block{
-    margin: 0;
-    padding: 0;
 
-
-}
-.slider{
+.slider-holder
+{
     width: 800px;
     height: 300px;
+    background-color: yellow;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    text-align: center;
     overflow: hidden;
+    border-radius: 3px;
+}
+
+.image-holder
+{
+    width: 2400px;
+    height: 300px;
+    clear: both;
+    position: relative;
+
+    -webkit-transition: left 2s;
+    -moz-transition: left 2s;
+    -o-transition: left 2s;
+    transition: left 2s;
+}
+
+.slider-image
+{
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+
+#slider-image-1:target ~ .image-holder
+{
+    left: 0px;
+}
+
+#slider-image-2:target ~ .image-holder
+{
+    left: -800px;
+}
+
+#slider-image-3:target ~ .image-holder
+{
+    left: -1600px;
+}
+
+.button-holder
+{
+    position: relative;
+    top: -20px;
+}
+
+.slider-change
+{
+    display: inline-block;
+    height: 10px;
+    width: 10px;
     border-radius: 5px;
+    background-color: brown;
 }
-.middle{
-    margin-left: 79px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.all_slider{
+    float: right;
+    margin-top:20px ;
+    margin-right: 168px;
 }
-.navigation{
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-}
-.bar{
-    height: 8px;
-    width: 30px;
-    margin: 6px;
-    cursor: pointer;
-    background-color: #ddd;
-    opacity: .5;
-    border-radius: 10px;
-    transition: all .4s ease;
-}
-.bar:hover{
-    opacity: 0.8;
-    transform: scale(1.1);
-}
-input[name="r"] {
-    position: absolute;
-    visibility: hidden;
-}
-.slider{
-    width: 500%;
-    height: 100%;
-    display: flex;
-}
-.slide{
-    width: 25%;
-    transition: all.6s ease;
-}
-.slide img {
-    width: 100%;
-    height: 100%;
-
-}
-
-
 
