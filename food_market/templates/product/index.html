@@ -9,13 +9,15 @@
 </head>
 <body>
     {% for product in products %}
-        <a href="{{ product.title }}" class="products">
-            <h3>{{ product.title }}</h3>
-            <img src="{{ product.image.url }}" width="200px">
-            <p>{{ product.description }}</p>
-        </a>
-        <a href="{% url 'category' product.category %}">Category - {{ product.category }}</a>
-        <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
+        <div class="products">
+                <a href="{{ product.title }}">
+                    <h3>{{ product.title }}</h3><br>
+                    <img src="{{ product.image.url }}" width="200px"><br>
+                    <p>{{ product.description }}</p><br>
+                    <p>Price: {{ product.price }}</p><br>
+                </a>
+                <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
+            </div>
     {% endfor %}
 </body>
 </html>

@@ -19,5 +19,8 @@
         <li><a href="{% url 'subcategory' cat.name %}">{{ cat.name }}</a></li>
     {% endfor %}
     </ul>
+    <a href="{% url 'all_products' %}" class="products">
+        To main page
+    </a>
 </body>
 </html>

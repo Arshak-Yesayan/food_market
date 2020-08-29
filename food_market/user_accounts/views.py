@@ -54,7 +54,6 @@ def auth_register(requests):
                                     subject="Verify your account",
                                     mail_from=('Localhost', 'localhost@localhost.com'))
                                 r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
-                                print(r.status_code, token)
                                 if r.status_code == 250:
                                     sent= True
 

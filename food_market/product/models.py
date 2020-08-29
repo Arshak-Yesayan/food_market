@@ -27,7 +27,7 @@ class Product(models.Model):
     description = models.TextField(null=False)
     image = models.ImageField(upload_to=upload_location, max_length=255, null=True, blank=True, default='product/default.png')
     likes = models.IntegerField(default=0, null=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, default=1)
     price = models.IntegerField(default=0, null=False)
     # slug = models.SlugField(blank=True, unique=True)

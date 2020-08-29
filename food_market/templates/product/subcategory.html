@@ -14,5 +14,14 @@
         <li><a href="{% url 'subcategory' cat.name %}">{{ cat.name }}</a></li>
     {% endfor %}
     </ul>
+    <h3>Products</h3>
+    <ul>
+    {% for product in products %}
+        <li><a href="{% url 'spec_product' product.title %}">{{ product.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'all_products' %}" class="products">
+        To main page
+    </a>
 </body>
 </html>
