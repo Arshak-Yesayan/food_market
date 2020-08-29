@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from product.models import Product
+from product.models import Product, Category, Subcategory
 
 # Register your models here.
 
@@ -8,3 +8,5 @@ from product.models import Product
 #     prepopulated_fields = {'slug':('title',)}
 
 admin.site.register(Product)
+admin.site.register(Category)
+admin.site.register(Subcategory)

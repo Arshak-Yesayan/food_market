@@ -11,9 +11,11 @@
     {% for product in products %}
         <a href="{{ product.title }}" class="products">
             <h3>{{ product.title }}</h3>
-            <img src="{{ MEDIA_URL }}{{ product.image }}" width="200px">
+            <img src="{{ product.image.url }}" width="200px">
             <p>{{ product.description }}</p>
         </a>
+        <a href="{% url 'category' product.category %}">Category - {{ product.category }}</a>
+        <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
     {% endfor %}
 </body>
 </html>

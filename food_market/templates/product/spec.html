@@ -9,8 +9,10 @@
 </head>
 <body>
     <h1>{{ product.title }}</h1>
-    <img src="{{ MEDIA_URL }}{{ product.image }}" width="200">
+    <img src="{{ product.image.url }}" width="200">
     <p>{{ product.description }}</p>
+    <a href="{% url 'category' product.category %}">Category - {{ product.category }}</a>
+        <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
     <a href="{% url 'all_products' %}" class="products">
         To main page
     </a>
