@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 from user_accounts.models import Verification
 
-from datetime import datetime
+import datetime
 from random import choice
 import string
 import emails
@@ -16,9 +16,9 @@ def get_random_string(length):
 
 def update_verification():
     users_verifications = Verification.objects.all()
-    new_date = datetime.utcnow()
+    new_date = datetime.datetime.utcnow()
     for user_verification in users_verifications:
-        if user_verification.date.year <= new_date.year and user_verification.date.month <= new_date.month and user_verification.date.day <= new_date.day:
+        if datetime.datetime(user_verification.date.year, user_verification.date.month, user_verification.date.day) < new_date:
             user_account = User.objects.get(username=user_verification.username)
             user_account.delete()
 
@@ -41,12 +41,10 @@ def auth_register(requests):
                             user = User.objects.create_user(username=username, email=email)
                             user.set_password(password1)
                             user.is_active = False
-                            date = datetime.utcnow()
-                            date = datetime(date.year, date.month, date.day + 1)
+                            date = datetime.datetime.now() + datetime.timedelta(days=1)
                             verify = Verification.objects.create(username=user, date=date)
                             token = get_random_string(16)
-                            verify.token = make_password(token)
-                            
+                            verify.token = make_password(token)                            
 
                             sent = False
                             while not sent:
