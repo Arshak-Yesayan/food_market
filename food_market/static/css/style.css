@@ -1,0 +1,80 @@
+body {
+    margin: 0px;
+}
+
+header {
+    background-color: darkblue;
+    min-height: 80px;
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.header_div {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.header_a {
+    color: greenyellow;
+    font-size: 36px;
+}
+
+.header_p {
+    display: inline;
+    color: greenyellow;
+    font-size: 36px;
+}
+
+main {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+table tr td {
+    width: 50%;
+    border: 2px solid black;
+}
+
+.name {
+    font-size: 100px;
+}
+
+footer {
+    background-color: black;
+    min-height: 150px;
+    width: 100%;
+    text-align: center;
+}
+
+#contact {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    color: lightblue;
+    text-align: center;
+    font-size: 48px;
+}
+
+footer div {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+footer div p {
+    display: inline-block;
+    font-size: 36px;
+    color: gold;
+    margin-right: 5px;
+}
+
+footer div a {
+    color: lightblue;
+    font-size: 36px;
+    margin-left: 5px;
+}

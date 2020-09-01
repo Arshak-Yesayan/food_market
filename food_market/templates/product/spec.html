@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+</head>
+<body>
+    <h1>{{ product.title }}</h1>
+    <img src="{{ product.image.url }}" width="200"><br>
+    <p>{{ product.description }}</p><br>
+    <p>Price: {{ product.price }}</p><br>
+    <a href="{% url 'category' category %}">Category - {{ category }}</a><br>
+    <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a><br>
+    <a href="{% url 'all_products' %}">
+        To main page
+    </a>
+</body>
+</html>
