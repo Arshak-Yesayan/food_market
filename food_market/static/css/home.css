@@ -111,13 +111,13 @@ body{
 /*create search panel*/
 
 .search_block{
-    width: 800px;
-    height: 43px;
+    width: 900px;
+    height: 50px;
     background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     display:flex ;
     float: right;
     margin-top: 18px;
-    margin-right: 170px;
+    margin-right: 117px;
     border-radius: 3px;
     margin-left: 0;
 }
@@ -135,23 +135,26 @@ body{
 .search_sub{
     margin: auto;
     margin-left: 5px;
+
+
 }
+
 .to{
    width:50px ;
     border-radius: 5px;
     font-size: 15px;
     height: 20px;
-    margin-left: 200px;
+    margin-left: 20px;
     margin-right: 5px;
     text-align: center;
-
-
 }
 .from{
-    width:50px;
+    width:120px;
     border-radius: 5px;
     font-size: 15px;
     height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     text-align: center;
 }
 .button_send{
@@ -166,7 +169,7 @@ body{
 
 .slider-holder
 {
-    width: 901px;
+    width: 900px;
     height: 340px;
     background-color: yellow;
     margin-left: auto;
@@ -205,18 +208,21 @@ body{
 
 #slider-image-2:target ~ .image-holder
 {
-    left: -901px;
+    left: -900px;
 }
 
 #slider-image-3:target ~ .image-holder
 {
-    left: -1802px;
+    left: -1800px;
 }
 
 .button-holder
 {
-    position: relative;
-    top: -20px;
+   position: fixed;
+  bottom: 100;
+  top: -20;
+  width: 500px;
+
 }
 
 .slider-change
@@ -224,7 +230,7 @@ body{
     display: inline-block;
     height: 10px;
     width: 10px;
-    border-radius: 5px;
+    border-radius: 50px;
     background-color: green;
 }
 .all_slider{
