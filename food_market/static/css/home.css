@@ -128,17 +128,14 @@ body{
 
 }
 .chgidem{
-    color: orange;
+    color: yellow;
     margin-left: auto;
     padding-right: 5px;
 }
 .search_sub{
     margin: auto;
     margin-left: 5px;
-
-
 }
-
 .to{
    width:50px ;
     border-radius: 5px;
