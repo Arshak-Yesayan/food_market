@@ -1,31 +1,31 @@
 body{
-    background: darkkhaki;
+    background: white;
 }
 
 /*part the class body_block*/
 .body_block{
     width: 1300px;
     height: auto;
-    padding: 10px;
+    padding: 0px;
     margin: auto;
 }
 
 /*header_menu*/
 .name_page{
-    font-size: 25px;
-    color: darkred;
+    font-size: 50px;
+    color: yellow;
     text-decoration: none;
     font-weight: bold;
 
 }
 .part_header_a{
-    color: #c0d1ff;
+    color: yellow;
     text-decoration: none;
 }
 .header{
     display: flex;
     justify-content: space-between;
-    background: rgba(69, 68, 68, 0.84);
+    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     font-family: Arial;
     height: 67px;
     width: 1300px;
@@ -42,7 +42,7 @@ body{
     font-size:18px;
 }
 .part_header_a:hover{
-    color: darkgoldenrod;
+    color: yellow;
 }
 
 
@@ -66,15 +66,15 @@ body{
 
 /*appearance style side-menu */
 .menu a{
-    background-color: rgba(69, 68, 68, 0.84);
-    color: #c0d1ff;
+    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
+    color: white;
     padding: 10px;
     display: block;
     border-bottom: 0.5px solid papayawhip;
     transition: 0.5s all;
 }
 .menu a:hover {
-    background: grey;
+    background: #056A35;
 }
 /*popup part of menu */
 
@@ -113,7 +113,7 @@ body{
 .search_block{
     width: 800px;
     height: 43px;
-    background: rgba(69, 68, 68, 0.84);
+    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     display:flex ;
     float: right;
     margin-top: 18px;
@@ -166,11 +166,11 @@ body{
 
 .slider-holder
 {
-    width: 800px;
-    height: 300px;
+    width: 901px;
+    height: 340px;
     background-color: yellow;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: -50px;
     margin-top: 0px;
     text-align: center;
     overflow: hidden;
@@ -205,12 +205,12 @@ body{
 
 #slider-image-2:target ~ .image-holder
 {
-    left: -800px;
+    left: -901px;
 }
 
 #slider-image-3:target ~ .image-holder
 {
-    left: -1600px;
+    left: -1802px;
 }
 
 .button-holder
@@ -225,7 +225,7 @@ body{
     height: 10px;
     width: 10px;
     border-radius: 5px;
-    background-color: brown;
+    background-color: green;
 }
 .all_slider{
     float: right;
