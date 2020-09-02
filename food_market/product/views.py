@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from product.models import Product, Category, Subcategory
-from django.http import JsonResponse
 from random import randint
 
 # Create your views here.
@@ -50,13 +49,6 @@ def all_products(requests):
     subcategories = Subcategory.objects.all()
     context = {'products': found, 'subcategories': subcategories}
     return render(requests, 'product/index.html', context=context)
-
-def get_json(requests):
-    try:
-        number = int(requests.GET['number'])
-    except:
-        number = 500000
-    return JsonResponse({'number': str(randint(number - 10000, number + 10000))})
 
 def spec_product(requests, title):
     try:

@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
 </head>
 <body>
-    <p id="something">500000</p>
-    <button onclick="update_number()">Update</button>
     <form action="" method="GET">
         <input type="text" name="name" placeholder="Search by name">
         <select name="category">
@@ -44,26 +42,5 @@
                 </div>
         {% endfor %}
     {% endif %}
-    <script>
-        var number = '500000';
-
-        function update_number() {
-            number = '500000';
-        }
-        
-        function loadDoc() {
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                number = JSON.parse(this.responseText)['number'];
-              document.getElementById("something").innerHTML = number;
-            }
-          };
-          xhttp.open("GET", "get_json?number=" + number, true);
-          xhttp.send();
-        }
-
-        setInterval(loadDoc, 100);
-    </script>
 </body>
 </html>
