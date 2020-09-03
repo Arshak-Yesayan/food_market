@@ -1,5 +1,5 @@
 body{
-    background: white;
+    background-image: url("../images/background_body.jpg");
 }
 
 /*part the class body_block*/
@@ -79,7 +79,10 @@ body{
 /*popup part of menu */
 
 .menu_list{
+    width: 180px;
+    height: 42px;
     position: relative;
+
 }
 .menu_sub{
     position: absolute;
