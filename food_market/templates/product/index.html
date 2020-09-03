@@ -8,26 +8,57 @@
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
 </head>
 <body>
-    <form action="" method="GET">
-        <input type="text" name="name" placeholder="Search by name">
-        <select name="category">
-            <option value="None">------</option>
-            {% for subcategory in subcategories %}
-            <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="number" name="from" placeholder="from">
-        <input type="number" name="to" placeholder="to">
-        <select name="sort">
-            <option value="title+">Name +</option>
-            <option value="likes+">Likes +</option>
-            <option value="price+">Price +</option>
-            <option value="title-">Name -</option>
-            <option value="likes-">Likes -</option>
-            <option value="price-">Price -</option>
-        </select>
-        <input type="submit" value="Search">
-    </form>
+    <div class="header">
+        <div class="header__section">
+            <div class="header_item headerlogo">
+                <a href="#" class="name_page hraderbutton">ASA</a>
+            </div>
+            <div class="header_item hraderbutton"><a href="{% url 'index' %}" class="part_header_a">Home</a></div>
+            <div class="header_item hraderbutton"><a href="{% url 'all_products' %}" class="part_header_a" >Products</a></div>
+            <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Promotion</a></div>
+            <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Delivery & Payment</a></div>
+            <div class="header_item hraderbutton"><a href="#" class="part_header_a" >About</a></div>
+        </div>
+        <div class="header__section">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9" cy="4" r="3.25" stroke="white" stroke-width="1.5"></circle>
+                <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
+            </svg>
+            {% if user.is_authenticated %}
+            <div class="header_item hraderbutton"><p class="part_header_a">{{ user.username }}</p></div>
+            <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
+            {% else %}
+            <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
+            <div class="header_item hraderbutton"><a href="{% url 'register' %}" class="part_header_a" >Sign Up</a></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="search_block">
+        <div class="search_sub">
+            <form action="{% url 'all_products' %}" name="search" method="GET">
+                <label class="chgidem" >Search</label>
+                <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
+                <select class="from" name="category">
+                    <option value="None">------</option>
+                        {% for subcategory in subcategories %}
+                    <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                        {% endfor %}
+                </select>
+                <label class="chgidem" > Price</label>
+                <input class="to" name="from" placeholder="from-">
+                <input class="to" name="to" placeholder="-to">
+                <select class="from" name="sort">
+                    <option value="title+">Name +</option>
+                    <option value="likes+">Likes +</option>
+                    <option value="price+">Price +</option>
+                    <option value="title-">Name -</option>
+                    <option value="likes-">Likes -</option>
+                    <option value="price-">Price -</option>
+                </select>
+                <button class="button_send" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     {% if products %}
         {% for product in products %}
             <div class="products">

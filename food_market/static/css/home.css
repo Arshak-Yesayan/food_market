@@ -1,5 +1,7 @@
 body{
     background-image: url("../images/background_body.jpg");
+    background-size: 100%;
+    background-repeat: repeat-y;
 }
 
 /*part the class body_block*/

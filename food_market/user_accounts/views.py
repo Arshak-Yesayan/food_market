@@ -23,8 +23,6 @@ def update_verification():
             user_account.delete()
 
 # Create your views here.
-def index(requests):
-    return render(requests, 'main/index.html')
 
 def auth_register(requests):
     context = {'message': None}
@@ -100,7 +98,7 @@ def auth_login(requests):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(requests, user)
-                return redirect('main')
+                return redirect('index')
             else:
                 context['message'] = 'Wrong username or password.'
 
@@ -109,5 +107,4 @@ def auth_login(requests):
 def auth_logout(requests):
     if requests.user.is_authenticated:
         logout(requests)
-        return render(requests, 'accounts/logout.html')
-    return redirect('main')
+    return redirect('index')
