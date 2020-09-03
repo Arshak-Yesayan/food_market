@@ -13,10 +13,7 @@
                 <div class="header_item headerlogo">
                     <a href="#" class="name_page hraderbutton">ASA</a>
                 </div>
-<<<<<<< HEAD
                 <div class="header_item hraderbutton"><a href="{% url 'index' %}" class="part_header_a">Home</a></div>
-=======
->>>>>>> a8b21035bcf10c0bef74146bb5a05665e13af706
                 <div class="header_item hraderbutton"><a href="{% url 'all_products' %}" class="part_header_a" >Products</a></div>
                 <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Promotion</a></div>
                 <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Delivery & Payment</a></div>
@@ -24,20 +21,11 @@
             </div>
             <div class="header__section">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<<<<<<< HEAD
          <circle cx="9" cy="4" r="3.25" stroke="white" stroke-width="1.5"></circle>
          <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
          </svg>
                 <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
                 <div class="header_item hraderbutton"><a href="{% url 'register' %}" class="part_header_a" >Sign Up</a></div>
-=======
-                    <circle cx="9" cy="4" r="3.25" stroke="white" stroke-width="1.5"></circle>
-                    <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
-                </svg>
-                <div class="header_item hraderbutton"><a href="accounts/login/" class="part_header_a" >Sign In</a></div>
-                <div class="header_item hraderbutton"><a href="accounts/register" class="part_header_a" >Sign Up</a></div>
-
->>>>>>> a8b21035bcf10c0bef74146bb5a05665e13af706
             </div>
         </div>
         <div class="search_block">
@@ -85,7 +73,6 @@
         </div>
         <div class="side">
             <ul class="menu">
-<<<<<<< HEAD
             {% for category in categories %}
                 <li class="menu_list"><a href="{% url 'category' category.0.name %}">{{ category.0.name }}</a>
                 <ul class="menu_sub">
@@ -97,67 +84,6 @@
                 </ul>
                 </li>
             {% endfor %}
-=======
-                <li class="menu_list"><a href="#">Bakery Goods</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Bread</a></li>
-                        <li><a href="#">Cakes</a></li>
-                        <li><a href="#">Crispbread</a></li>
-                        <li><a href="#">Pastry</a></li>
-                        <li><a href="#">Eastern sweets</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Juice and Beverages</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Natural juice</a></li>
-                        <li><a href="#">Compote</a></li>
-                        <li><a href="#">Water</a></li>
-                        <li><a href="#">Cocktails</a></li>
-                        <li><a href="#">Energy drinks</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Alcoholic beverages</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Wine</a></li>
-                        <li><a href="#">Cognac, brandy</a></li>
-                        <li><a href="#">Vodka</a></li>
-                        <li><a href="#">Whiskey</a></li>
-                        <li><a href="#">Liqueur</a></li>
-                        <li><a href="#">Rum, tequila</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Coffee and tea</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Coffee</a></li>
-                        <li><a href="#">Tea</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Meat Products</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Fresh meat</a></li>
-                        <li><a href="#">Basturma, sudjuk</a></li>
-                        <li><a href="#">Sausages</a></li>
-                        <li><a href="#">Meat delicacies</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Fish and Seafood</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Seafood</a></li>
-                        <li><a href="#">Frozen fish</a></li>
-                        <li><a href="#">Caviar</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">Tobacco Products</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Cigar</a></li>
-                        <li><a href="#">Cigarettes</a></li>
-                        <li><a href="#">Smoke free products</a></li>
-                        <li><a href="#">Lighter, accessories</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#" >Vegetables and Fruits</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">Fruits</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Tropical fruits</a></li>
-                        <li><a href="#">Berries</a></li>
-                        <li><a href="#">Greens</a></li>
-                        <li><a href="#">Nuts, dried fruits</a></li>
-                    </ul></li>
->>>>>>> a8b21035bcf10c0bef74146bb5a05665e13af706
             </ul>
         </div>
     </div>
