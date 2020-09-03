@@ -1,5 +1,6 @@
 body{
     background-image: url("../images/background_body.jpg");
+    background-size: cover;
 }
 
 /*part the class body_block*/
