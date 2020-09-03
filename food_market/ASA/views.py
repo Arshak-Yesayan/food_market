@@ -6,5 +6,5 @@ from django.http import HttpResponse
 def index(request):
 
     context_dict = {}
-    return render(request, 'ASA/home.html', )
+    return render(request, 'ASA/home1.html', )
 
