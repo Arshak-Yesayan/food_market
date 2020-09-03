@@ -13,6 +13,6 @@ def index(request):
         cat = [category, [subcategories]]
         array.append(cat)
     context = {'categories': array}
-    return render(request, 'ASA/home.html1', context=context)
+    return render(request, 'ASA/home1.html', context=context)
 
 
