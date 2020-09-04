@@ -26,7 +26,7 @@
             </svg>
             {% if user.is_authenticated %}
             <div class="header_item hraderbutton"><p class="part_header_p">{{ user.username }}</p></div>
-            <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
+            <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Sign out</a></div>
             {% else %}
             <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
             <div class="header_item hraderbutton"><a href="{% url 'register' %}" class="part_header_a" >Sign Up</a></div>
@@ -66,16 +66,20 @@
     {% if products %}
         {% for product in products %}
             <div class="products">
-                    <a href="{{ product.title }}">
+                    <a href="spec/{{ product.title }}">
                         <h3>{{ product.title }}</h3><br>
                         <img src="{{ product.image.url }}" width="200px"><br>
                         <p>{{ product.description }}</p><br>
-                        <p>Likes: {{ product.likes }}</p><br>
+                        <p>Likes: </p><p id="likes_{{ product.id }}">{{ product.likes }}</p><br>
+                        <p>Dislikes: </p><p id="dislikes_{{ product.id }}">{{ product.dislikes }}</p><br>
                         <p>Price: {{ product.price }}</p><br>
                     </a>
+                    <img src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')">
+                    <img src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')">
                     <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
                 </div>
         {% endfor %}
     {% endif %}
+    <script src="{% static 'js/like.js' %}"></script>
 </body>
 </html>

@@ -5,7 +5,6 @@ from product.models import Category, Subcategory
 
 
 def index(request):
-
     array = []
     categories = Category.objects.all()
     for category in categories:
@@ -14,3 +13,6 @@ def index(request):
         array.append(cat)
     context = {'categories': array}
     return render(request, 'ASA/home.html', context=context)
+
+def about(request):
+    return render(request, 'ASA/about.html')

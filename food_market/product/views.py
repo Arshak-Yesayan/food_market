@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 
 from product.models import Product, Category, Subcategory
 from random import randint
@@ -89,3 +90,20 @@ def subcategory(requests, subcategories):
         return redirect('all_products')
     context = {'subcategory': subcat, 'other_cats': other_cats, 'products': products}
     return render(requests, 'product/subcategory.html', context=context)
+
+def like(request):
+    if request.user.is_authenticated:
+        try:
+            id = request.GET['id']
+            what = request.GET['what']
+            product = Product.objects.get(id=id)
+            if what == 'like':
+                product.likes += 1
+            elif what == 'dislike':
+                product.dislikes += 1
+            product.save()
+            return JsonResponse({'result': True})
+        except:
+            return JsonResponse({'result': False})
+    else:
+        return JsonResponse({'result': False})

@@ -26,7 +26,7 @@
             </svg>
             {% if user.is_authenticated %}
             <div class="header_item hraderbutton"><p class="part_header_p">{{ user.username }}</p></div>
-            <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
+            <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Sign out</a></div>
             {% else %}
             <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
             <div class="header_item hraderbutton"><a href="{% url 'register' %}" class="part_header_a" >Sign Up</a></div>
