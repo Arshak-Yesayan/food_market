@@ -40,20 +40,24 @@
                 <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
                 <select class="from" name="category">
                     <option value="None">------</option>
-                        {% for subcategory in subcategories %}
-                    <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                        {% for category in categories %}
+                            <optgroup label="{{ category.0.name }}">
+                            {% for subcategories in category.1 %}
+                                {% for subcategory in subcategories %}
+                                    <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            </optgroup>
                         {% endfor %}
                 </select>
                 <label class="chgidem" > Price</label>
-                <input class="to" name="from" placeholder="from-">
-                <input class="to" name="to" placeholder="-to">
+                <input class="to" name="from" placeholder="from">
+                <input class="to" name="to" placeholder="to">
                 <select class="from" name="sort">
-                    <option value="title+">Name +</option>
-                    <option value="likes+">Likes +</option>
-                    <option value="price+">Price +</option>
-                    <option value="title-">Name -</option>
-                    <option value="likes-">Likes -</option>
-                    <option value="price-">Price -</option>
+                    <option value="name">Name</option>
+                    <option value="popular">Popularity</option>
+                    <option value="price_lh">Price: Low to High</option>
+                    <option value="price_hl">Price: High to Low</option>
                 </select>
                 <button class="button_send" type="submit">Search</button>
             </form>

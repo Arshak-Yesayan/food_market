@@ -30,25 +30,35 @@ def all_products(requests):
         else:
             search_form = 'WHERE ' + ' AND '.join(where_search)
 
-        if sort_by[-1] == '+':
+        if sort_by == 'name':
+            sort_tag = 'title'
             sort_way = 'ASC'
-        elif sort_by[-1] == '-':
+        elif sort_by == 'popular':
+            sort_tag = 'likes'
             sort_way = 'DESC'
+        elif sort_by == 'price_hl':
+            sort_tag = 'price'
+            sort_way = 'DESC'
+        elif sort_by == 'price_lh':
+            sort_tag = 'price'
+            sort_way = 'ASC'
         else:
             redirect('all_products')
         
-        if sort_by[:-1] in ['title', 'likes', 'price']:
-            sort_tag = sort_by[:-1]
-        else:
-            redirect('all_products')
-        
-        search_form = f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} {sort_way} LIMIT 10'
+        search_form = f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC  LIMIT 10'
 
         found = Product.objects.raw(search_form)
     except:
-        found = Product.objects.raw('SELECT * FROM product_product ORDER BY title ASC LIMIT 10')
-    subcategories = Subcategory.objects.all()
-    context = {'products': found, 'subcategories': subcategories}
+        found = Product.objects.raw('SELECT * FROM product_product ORDER BY title COLLATE NOCASE ASC LIMIT 10')
+    
+    array = []
+    categories = Category.objects.all()
+    for category in categories:
+        subcategories = Subcategory.objects.filter(category=category)
+        cat = [category, [subcategories]]
+        array.append(cat)
+
+    context = {'products': found, 'categories': array}
     return render(requests, 'product/index.html', context=context)
 
 def spec_product(requests, title):
