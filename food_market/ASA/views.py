@@ -5,6 +5,7 @@ from product.models import Category, Subcategory
 
 
 def index(request):
+
     array = []
     categories = Category.objects.all()
     for category in categories:
