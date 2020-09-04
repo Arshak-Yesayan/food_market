@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+
 from product.models import Product, Category, Subcategory
 from random import randint
 
@@ -15,7 +16,7 @@ def all_products(requests):
         if name != '':
             where_search.append(f"title LIKE '%{name}%'")
 
-        if category_id.isdigit():
+        if category_id.isdigit() and category_id != '':
             where_search.append(f'subcategory_id = {category_id}')
 
         if price_from != '':

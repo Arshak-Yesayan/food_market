@@ -11,7 +11,7 @@
         <div class="header">
             <div class="header__section">
                 <div class="header_item headerlogo">
-                    <a href="#" class="name_page hraderbutton">ASA</a>
+                    <a href="{% url 'index' %}" class="name_page hraderbutton">ASA</a>
                 </div>
                 <div class="header_item hraderbutton"><a href="{% url 'index' %}" class="part_header_a">Home</a></div>
                 <div class="header_item hraderbutton"><a href="{% url 'all_products' %}" class="part_header_a" >Products</a></div>
@@ -25,7 +25,7 @@
                     <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
                 </svg>
                 {% if user.is_authenticated %}
-                <div class="header_item hraderbutton"><p class="part_header_a">{{ user.username }}</p></div>
+                <div class="header_item hraderbutton"><p class="part_header_p">{{ user.username }}</p></div>
                 <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
                 {% else %}
                 <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
@@ -65,9 +65,9 @@
             <span id="slider-image-2"></span>
             <span id="slider-image-3"></span>
             <div class="image-holder">
-                <img src="{{ MEDIA_URL }}image1.jpg" class="slider-image" />
-                <img src="{{ MEDIA_URL }}image2.jpg" class="slider-image" />
-                <img src="{{ MEDIA_URL }}image3.jpg" class="slider-image" />
+                <img src="{{ MEDIA_URL }}image1.jpg" class="slider-image">
+                <img src="{{ MEDIA_URL }}image2.jpg" class="slider-image">
+                <img src="{{ MEDIA_URL }}image3.jpg" class="slider-image">
             </div>
             <div class="button-holder">
                 <a href="#slider-image-1" class="slider-change"></a>

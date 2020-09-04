@@ -18,10 +18,21 @@
     font-weight: bold;
 
 }
+
 .part_header_a{
     color: yellow;
     text-decoration: none;
 }
+
+.part_header_p{
+    color: yellow;
+    text-decoration: none;
+}
+
+.part_header_a:hover {
+    font-weight: bold;
+}
+
 .header{
     display: flex;
     justify-content: space-between;

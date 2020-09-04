@@ -11,6 +11,6 @@ def index(request):
         subcategories = Subcategory.objects.filter(category=category)
         cat = [category, [subcategories]]
         array.append(cat)
-    context = {'categories': array}
+    subcategories = Subcategory.objects.all()
+    context = {'categories': array, 'subcategories': subcategories}
     return render(request, 'ASA/home.html', context=context)
-
