@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from rango import forms
 from datetime import datetime
 from user_accounts.models import Profile
+from django import forms
 
 
 class UserUpdateForm(forms.ModelForm):
