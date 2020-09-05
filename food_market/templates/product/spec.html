@@ -37,11 +37,15 @@
     <img src="{{ product.image.url }}" width="200"><br>
     <p>{{ product.description }}</p><br>
     <p>Price: {{ product.price }}</p><br>
-    <p>Likes: {{ product.likes }}</p><br>
+    <p>Likes: </p><p id="likes_{{ product.id }}">{{ product.likes }}</p><br>
+    <p>Dislikes: </p><p id="dislikes_{{ product.id }}">{{ product.dislikes }}</p><br>
+    <img src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')">
+    <img src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')">
     <a href="{% url 'category' category %}">Category - {{ category }}</a><br>
     <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a><br>
     <a href="{% url 'all_products' %}">
         To main page
     </a>
+    <script src="{% static 'js/like.js' %}"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 
-from product.models import Product, Category, Subcategory
+from product.models import Product, Category, Subcategory, Like
 from random import randint
 
 # Create your views here.
@@ -96,13 +97,41 @@ def like(request):
         try:
             id = request.GET['id']
             what = request.GET['what']
-            product = Product.objects.get(id=id)
-            if what == 'like':
-                product.likes += 1
-            elif what == 'dislike':
-                product.dislikes += 1
-            product.save()
-            return JsonResponse({'result': True})
+            user = User.objects.get(username=request.user.username)
+            products = Product.objects.filter(id=id)
+            if products.exists():
+                product = products[0]
+                likes = Like.objects.filter(username=user, product=product)
+                if likes.exists():
+                    like_row = likes[0]
+                    if what == 'like':
+                        if not like_row.like_dislike:
+                            product.likes += 1
+                            product.dislikes -= 1
+                            like_row.like_dislike = True
+                            done = 'd_to_l'
+                    elif what == 'dislike':
+                        if like_row.like_dislike:
+                            product.dislikes += 1
+                            product.likes -= 1
+                            like_row.like_dislike = False
+                            done = 'l_to_d'
+                else:
+                    if what == 'like':
+                        product.likes += 1
+                        like_dislike = True
+                        like_row = Like(username=user, product=product, like_dislike=like_dislike)
+                        done = 'l'
+                    elif what == 'dislike':
+                        product.dislikes += 1
+                        like_dislike = False
+                        like_row = Like(username=user, product=product, like_dislike=like_dislike)
+                        done = 'd'
+                like_row.save()
+                product.save()
+            else:
+                return JsonResponse({'result': False})
+            return JsonResponse({'result': True, 'done': done})
         except:
             return JsonResponse({'result': False})
     else:

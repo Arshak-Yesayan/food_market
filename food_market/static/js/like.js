@@ -4,15 +4,27 @@ var like = function(id, what) {
         if (this.readyState == 4 && this.status == 200) {
             table = JSON.parse(this.response);
             if (table['result']) {
-                if (what == 'like') {
-                    likes = document.getElementById("likes_" + id).textContent;
-                    console.log(likes);
-                    document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) + 1);
-                }
-                else if (what == 'dislike') {
-                    dislikes = document.getElementById("dislikes_" + id).textContent;
-                    console.log(dislikes);
-                    document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) + 1);
+                switch (table['done']) {
+                    case 'd_to_l':
+                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) + 1);
+                        dislikes = document.getElementById("dislikes_" + id).textContent;
+                        document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) - 1);
+                        break;
+                    case 'l_to_d':
+                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) - 1);
+                        dislikes = document.getElementById("dislikes_" + id).textContent;
+                        document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) + 1);
+                        break;
+                    case 'l':
+                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) + 1);
+                        break;
+                    case 'd':
+                        dislikes = document.getElementById("dislikes_" + id).textContent;
+                        document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) + 1);
+                        break;
                 }
             }
         }
