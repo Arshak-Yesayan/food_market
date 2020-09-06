@@ -251,3 +251,9 @@ body{
     margin-right: 168px;
 }
 
+h3 {
+    background-color: rgba(255, 255, 255, 0.33);
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}

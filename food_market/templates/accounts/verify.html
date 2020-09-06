@@ -1,16 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifying</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-    {% if verified %}
-    <h1>Your account was verified.</h1>
-    {% else %}
-    <h1>Wrong username or token.</h1>
-    {% endif %}
-    <a href="{% url 'index' %}">To home page</a>
+    <div class="container">
+        <div id="main">
+            {% if verified %}
+                <h1>Your account was verified.</h1>
+            {% else %}
+                <h1>Wrong username or token.</h1>
+            {% endif %}
+            <a href="{% url 'login' %}">Sign in</a>
+            <a href="{% url 'index' %}">To home page</a>
+        </div>
+    </div>
 </body>
 </html>

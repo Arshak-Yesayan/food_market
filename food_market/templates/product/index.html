@@ -25,7 +25,9 @@
                 <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
             </svg>
             {% if user.is_authenticated %}
+
             <div class="header_item hraderbutton"><p href="{% url 'profile' %}" class="part_header_p">{{ user.username }}</p></div>
+
             <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
             {% else %}
             <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
@@ -66,16 +68,32 @@
     {% if products %}
         {% for product in products %}
             <div class="products">
-                    <a href="{{ product.title }}">
-                        <h3>{{ product.title }}</h3><br>
-                        <img src="{{ product.image.url }}" width="200px"><br>
-                        <p>{{ product.description }}</p><br>
-                        <p>Likes: {{ product.likes }}</p><br>
-                        <p>Price: {{ product.price }}</p><br>
+                    <a href="spec/{{ product.0.title }}">
+                        <h3>{{ product.0.title }}</h3><br>
+                        <img src="{{ product.0.image.url }}" width="200px"><br>
+                        <p>{{ product.0.description }}</p><br>
+                        <p>Price: {{ product.0.price }}</p><br>
                     </a>
-                    <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
+                    {% if product.1 %}
+                        <img id="like_picture_{{ product.0.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')" style="visibility: hidden; position: absolute;">
+                        <img id="like_picture_colored_{{ product.0.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')">
+                    {% else %}
+                        <img id="like_picture_{{ product.0.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')">
+                        <img id="like_picture_colored_{{ product.0.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')" style="visibility: hidden; position: absolute;">
+                    {% endif %}
+                    <p id="likes_{{ product.0.id }}" class="like_dislike">{{ product.0.likes }}</p>
+                    {% if product.2 %}
+                        <img id="dislike_picture_{{ product.0.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+                        <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')">
+                    {% else %}
+                        <img id="dislike_picture_{{ product.0.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')">
+                        <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+                    {% endif %}
+                    <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p><br>
+                    <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
                 </div>
         {% endfor %}
     {% endif %}
+    <script src="{% static 'js/like.js' %}"></script>
 </body>
 </html>
