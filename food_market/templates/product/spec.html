@@ -25,7 +25,7 @@
                 <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
             </svg>
             {% if user.is_authenticated %}
-            <div class="header_item hraderbutton"><p class="part_header_p">{{ user.username }}</p></div>
+            <div class="header_item hraderbutton"><a href="{% url 'profile' %}" class="part_header_p">{{ user.username }}</a></div>
             <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
             {% else %}
             <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
