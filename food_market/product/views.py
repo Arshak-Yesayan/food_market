@@ -63,14 +63,22 @@ def all_products(requests):
     context = {'products': found, 'categories': array}
     return render(requests, 'product/index.html', context=context)
 
-def spec_product(requests, title):
+def spec_product(request, title):
     try:
         prod = Product.objects.get(title=title)
+        try:
+            user = User.objects.get(username=request.user.username)
+            like_row = Like.objects.get(username=user, product=prod)
+            liked = like_row.like
+            disliked = like_row.dislike
+        except:
+            liked = False
+            disliked = False
     except:
         return redirect('all_products')
     category = Subcategory.objects.get(name=prod.subcategory).category
-    context = {'product': prod, 'category': category}
-    return render(requests, 'product/spec.html', context=context)
+    context = {'product': prod, 'category': category, 'liked': liked, 'disliked': disliked}
+    return render(request, 'product/spec.html', context=context)
 
 def category(requests, categories):
     try:
@@ -105,27 +113,43 @@ def like(request):
                 if likes.exists():
                     like_row = likes[0]
                     if what == 'like':
-                        if not like_row.like_dislike:
+                        if like_row.like == True:
+                            like_row.like = False
+                            product.likes -= 1
+                            done = 'd_l'
+                        elif like_row.dislike == True:
+                            like_row.like = True
+                            like_row.dislike = False
                             product.likes += 1
                             product.dislikes -= 1
-                            like_row.like_dislike = True
                             done = 'd_to_l'
+                        else:
+                            like_row.like = True
+                            product.likes += 1
+                            done = 'l'
                     elif what == 'dislike':
-                        if like_row.like_dislike:
+                        if like_row.dislike == True:
+                            like_row.dislike = False
+                            product.dislikes -= 1
+                            done = 'd_d'
+                        elif like_row.like == True:
+                            like_row.dislike = True
+                            like_row.like = False
                             product.dislikes += 1
                             product.likes -= 1
-                            like_row.like_dislike = False
                             done = 'l_to_d'
+                        else:
+                            like_row.dislike = True
+                            product.dislikes += 1
+                            done = 'd'
                 else:
                     if what == 'like':
                         product.likes += 1
-                        like_dislike = True
-                        like_row = Like(username=user, product=product, like_dislike=like_dislike)
+                        like_row = Like(username=user, product=product, like=True)
                         done = 'l'
                     elif what == 'dislike':
                         product.dislikes += 1
-                        like_dislike = False
-                        like_row = Like(username=user, product=product, like_dislike=like_dislike)
+                        like_row = Like(username=user, product=product, dislike=True)
                         done = 'd'
                 like_row.save()
                 product.save()

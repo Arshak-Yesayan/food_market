@@ -6,24 +6,56 @@ var like = function(id, what) {
             if (table['result']) {
                 switch (table['done']) {
                     case 'd_to_l':
-                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById('dislike_picture_' + id).style.visibility = "visible";
+                        document.getElementById('dislike_picture_colored_' + id).style.visibility = "hidden";
+                        document.getElementById('like_picture_' + id).style.visibility = "hidden";
+                        document.getElementById('like_picture_colored_' + id).style.visibility = "visible";
+                        document.getElementById('like_picture_' + id).style.position = "absolute";
+                        document.getElementById('like_picture_colored_' + id).style.position = "static";
+                        document.getElementById('dislike_picture_' + id).style.position = "static";
+                        document.getElementById('dislike_picture_colored_' + id).style.position = "absolute";
                         document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) + 1);
-                        dislikes = document.getElementById("dislikes_" + id).textContent;
                         document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) - 1);
                         break;
                     case 'l_to_d':
-                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById('like_picture_' + id).style.visibility = "visible";
+                        document.getElementById('like_picture_colored_' + id).style.visibility = "hidden";
+                        document.getElementById('dislike_picture_' + id).style.visibility = "hidden";
+                        document.getElementById('dislike_picture_colored_' + id).style.visibility = "visible";
+                        document.getElementById('dislike_picture_' + id).style.position = "absolute";
+                        document.getElementById('dislike_picture_colored_' + id).style.position = "static";
+                        document.getElementById('like_picture_' + id).style.position = "static";
+                        document.getElementById('like_picture_colored_' + id).style.position = "absolute";
                         document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) - 1);
-                        dislikes = document.getElementById("dislikes_" + id).textContent;
                         document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) + 1);
                         break;
                     case 'l':
-                        likes = document.getElementById("likes_" + id).textContent;
+                        document.getElementById('like_picture_' + id).style.visibility = "hidden";
+                        document.getElementById('like_picture_colored_' + id).style.visibility = "visible";
+                        document.getElementById('like_picture_' + id).style.position = "absolute";
+                        document.getElementById('like_picture_colored_' + id).style.position = "static";
                         document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) + 1);
                         break;
                     case 'd':
-                        dislikes = document.getElementById("dislikes_" + id).textContent;
+                        document.getElementById('dislike_picture_' + id).style.visibility = "hidden";
+                        document.getElementById('dislike_picture_colored_' + id).style.visibility = "visible";
+                        document.getElementById('dislike_picture_' + id).style.position = "absolute";
+                        document.getElementById('dislike_picture_colored_' + id).style.position = "static";
                         document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) + 1);
+                        break;
+                    case 'd_l':
+                        document.getElementById('like_picture_' + id).style.visibility = "visible";
+                        document.getElementById('like_picture_colored_' + id).style.visibility = "hidden";
+                        document.getElementById('like_picture_' + id).style.position = "static";
+                        document.getElementById('like_picture_colored_' + id).style.position = "absolute";
+                        document.getElementById("likes_" + id).innerHTML = String(parseInt(document.getElementById("likes_" + id).textContent) - 1);
+                        break;
+                    case 'd_d':
+                        document.getElementById('dislike_picture_' + id).style.visibility = "visible";
+                        document.getElementById('dislike_picture_colored_' + id).style.visibility = "hidden";
+                        document.getElementById('dislike_picture_' + id).style.position = "static";
+                        document.getElementById('dislike_picture_colored_' + id).style.position = "absolute";
+                        document.getElementById("dislikes_" + id).innerHTML = String(parseInt(document.getElementById("dislikes_" + id).textContent) - 1);
                         break;
                 }
             }

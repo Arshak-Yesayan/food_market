@@ -70,12 +70,10 @@
                         <h3>{{ product.title }}</h3><br>
                         <img src="{{ product.image.url }}" width="200px"><br>
                         <p>{{ product.description }}</p><br>
-                        <p>Likes: </p><p id="likes_{{ product.id }}">{{ product.likes }}</p><br>
-                        <p>Dislikes: </p><p id="dislikes_{{ product.id }}">{{ product.dislikes }}</p><br>
                         <p>Price: {{ product.price }}</p><br>
                     </a>
-                    <img src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')">
-                    <img src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')">
+                    <img src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')"><p id="likes_{{ product.id }}" class="like_dislike">{{ product.likes }}</p>
+                    <img src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')"><p id="dislikes_{{ product.id }}" class="like_dislike">{{ product.dislikes }}</p><br>
                     <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
                 </div>
         {% endfor %}
