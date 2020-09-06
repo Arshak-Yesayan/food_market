@@ -6,13 +6,13 @@ from product.models import Product, Category, Subcategory, Like
 from random import randint
 
 # Create your views here.
-def all_products(requests):
+def all_products(request):
     try:
-        name = requests.GET['name']
-        category_id = requests.GET['category']
-        price_from = requests.GET['from']
-        price_to = requests.GET['to']
-        sort_by = requests.GET['sort']
+        name = request.GET['name']
+        category_id = request.GET['category']
+        price_from = request.GET['from']
+        price_to = request.GET['to']
+        sort_by = request.GET['sort']
         where_search = []
 
         if name != '':
@@ -46,12 +46,40 @@ def all_products(requests):
             sort_way = 'ASC'
         else:
             redirect('all_products')
-        
-        search_form = f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC  LIMIT 10'
 
-        found = Product.objects.raw(search_form)
+        found = Product.objects.raw(f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC  LIMIT 10')
+        product_array = []
+        try:
+            user = User.objects.get(username=request.user.username)
+            for prod in found:
+                try:
+                    like_row = Like.objects.get(username=user, product=prod)
+                    liked = like_row.like
+                    disliked = like_row.dislike
+                except:
+                    liked = False
+                    disliked = False
+                product_array.append( [prod, liked, disliked] )
+        except:
+            for prod in found:
+                product_array.append( [prod, False, False] )
     except:
         found = Product.objects.raw('SELECT * FROM product_product ORDER BY title COLLATE NOCASE ASC LIMIT 10')
+        product_array = []
+        try:
+            user = User.objects.get(username=request.user.username)
+            for prod in found:
+                try:
+                    like_row = Like.objects.get(username=user, product=prod)
+                    liked = like_row.like
+                    disliked = like_row.dislike
+                except:
+                    liked = False
+                    disliked = False
+                product_array.append( [prod, liked, disliked] )
+        except:
+            for prod in found:
+                product_array.append( [prod, False, False] )
     
     array = []
     categories = Category.objects.all()
@@ -60,8 +88,8 @@ def all_products(requests):
         cat = [category, [subcategories]]
         array.append(cat)
 
-    context = {'products': found, 'categories': array}
-    return render(requests, 'product/index.html', context=context)
+    context = {'products': product_array, 'categories': array}
+    return render(request, 'product/index.html', context=context)
 
 def spec_product(request, title):
     try:
@@ -80,7 +108,7 @@ def spec_product(request, title):
     context = {'product': prod, 'category': category, 'liked': liked, 'disliked': disliked}
     return render(request, 'product/spec.html', context=context)
 
-def category(requests, categories):
+def category(request, categories):
     try:
         cat = Category.objects.get(name=categories)
         other_cats = Category.objects.all()
@@ -88,9 +116,9 @@ def category(requests, categories):
     except:
         return redirect('all_products')
     context = {'category': cat, 'other_cats': other_cats, 'sub_cats': subcats}
-    return render(requests, 'product/category.html', context=context)
+    return render(request, 'product/category.html', context=context)
 
-def subcategory(requests, subcategories):
+def subcategory(request, subcategories):
     try:
         subcat = Subcategory.objects.get(name=subcategories)
         other_cats = Subcategory.objects.filter(category=subcat.category)
@@ -98,7 +126,7 @@ def subcategory(requests, subcategories):
     except:
         return redirect('all_products')
     context = {'subcategory': subcat, 'other_cats': other_cats, 'products': products}
-    return render(requests, 'product/subcategory.html', context=context)
+    return render(request, 'product/subcategory.html', context=context)
 
 def like(request):
     if request.user.is_authenticated:
