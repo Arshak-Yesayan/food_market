@@ -37,11 +37,27 @@
     <img src="{{ product.image.url }}" width="200"><br>
     <p>{{ product.description }}</p><br>
     <p>Price: {{ product.price }}</p><br>
-    <p>Likes: {{ product.likes }}</p><br>
+    {% if liked %}
+        <img id="like_picture_{{ product.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')" style="visibility: hidden; position: absolute;">
+        <img id="like_picture_colored_{{ product.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')">
+    {% else %}
+        <img id="like_picture_{{ product.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')">
+        <img id="like_picture_colored_{{ product.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'like')" style="visibility: hidden; position: absolute;">
+    {% endif %}
+    <p id="likes_{{ product.id }}" class="like_dislike">{{ product.likes }}</p>
+    {% if disliked %}
+        <img id="dislike_picture_{{ product.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+        <img id="dislike_picture_colored_{{ product.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')">
+    {% else %}
+        <img id="dislike_picture_{{ product.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')">
+        <img id="dislike_picture_colored_{{ product.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+    {% endif %}
+    <p id="dislikes_{{ product.id }}" class="like_dislike">{{ product.dislikes }}</p><br>
     <a href="{% url 'category' category %}">Category - {{ category }}</a><br>
     <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a><br>
     <a href="{% url 'all_products' %}">
         To main page
     </a>
+    <script src="{% static 'js/like.js' %}"></script>
 </body>
 </html>
