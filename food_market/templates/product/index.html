@@ -88,7 +88,7 @@
                         <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
                     {% endif %}
                     <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p><br>
-                    <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.subcategory }}</a>
+                    <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
                 </div>
         {% endfor %}
     {% endif %}
