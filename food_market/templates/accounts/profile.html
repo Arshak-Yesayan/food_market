@@ -1,124 +1,109 @@
-<!DOCTYPE html>
+{% extends 'base_header.html' %}
 {% load crispy_forms_tags %}
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<div class="nav-left">
-    <h3><a href="{% url 'logout' %}">Logout</a></h3>
-</div>
-<div class="col-md--2">
-    <h4> <a href="#">Link</a> </h4>
-</div>
-<div class="container emp-profile">
-    <form method="post">
-        <div class="row">
-            <div class="col-md-5" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                <div class="profile-img">
+{% load static %}
+{% block title %}
+         Profile
+    {% endblock %}
+{% block login %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static  'css/profile.css' %}">
+    <title>Sign In</title>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="profile-edit">
+          <form action="#" class="prof-form">
+              <div class="profile-img">
                     <img src="{{user.profile.photo.url}}"
-                         width="40%" align="center" border="10" hspace="10%" vspace="10%" alt="Profile image"/>
-                </div>
-            </div>
-            <div class="col-md-6" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                <div class="profile-head">
-                    <h3>
-                        {% if user.is_authenticated %}
+                         width="30%" align="center"  hspace="10%" vspace="120%" alt="Profile image"/>
+              </div>
+                    <h2 class="title">{% if user.is_authenticated %}
                             <p>Hi {{ user.username }}!</p>
                         {% else %}
                             <p>You are not logged in.</p>
                             <a href="{% url 'login' %}">Log In</a>
                         {% endif %}
-                    </h3>
-
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <h5> <a class="nav-link active" id="home-tab" data-toggle="tab" href="/accounts/profile"
-                            role="tab" aria-controls="home" aria-selected="true">Profile Info</a> </h5>
-                </li>
-                <li class="nav-item">
-                    <h5> <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit"
-                       role="tab" aria-controls="profile" style="color: black; aria-selected="false">Edit Profile</a> </h5>
-                </li>
-            </ul>
+                    </h2>
+                <div class="input-field">
+                <h4>
+                    <label>First Name:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.first_name}}</i>
                 </div>
-            </div>
-        </div>
-        </form>
-                <div class="row">
-                    <div class="col-md-4" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                        <div class="profile-work" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                            <p>            </p>
-                            <a href="#" style="color:black;" >Link</a><br/>
-                        </div>
-                    </div>
+                <div class="input-field">
+                <h4>
+                    <label>Last Name:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.last_name}}</i>
+                </div>
+                <div class="input-field">
+                    <h4>
+                    <label>Email:</label>
+                    </h4>
+                <i class="fas profile">{{user.profile.email}}</i>
+                </div>
+                <div class="input-field">
+                <h4>
+                    <label>Date of birth:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.date_of_birth}}</i>
+                </div>
+          </form>
 
-                    <div class="col-md-7" style="background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" >
-                                        <h4>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold">
-                                                <label>First Name:</label></p>
-                                            </div>
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold"> {{user.profile.first_name}}</p>
-                                            </div>
-                                        </div>
-                                        </h4>
-                                        <h4>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold">
-                                                <label>Last Name:</label></p>
-                                            </div>
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold"> {{user.profile.last_name}}</p>
-                                            </div>
-                                        </div>
-                                        </h4>
-                                        <h4>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold">
-                                                <label>Email:</label></p>
-                                            </div>
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold"> {{user.profile.email}}</p>
-                                            </div>
-                                        </div>
-                                        </h4>
-                                        <h4>
-                                        <div class="row">
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold">
-                                                    <label>Date of birth:</label></p>
-                                            </div>
-                                            <div class="col-md-6" >
-                                                <p class="font-weight-bold"> {{user.profile.date_of_birth}}</p>
-                                            </div>
-                                        </div>
-                                         </h4>
-                                </div>
-                            </div>
-                        </div>
-
-        <div class="col-md-11" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-            <div class="tab-pane" id="edit">
-                <div class="col-md-4" style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">
-                    <h4 class="m-y-5">Edit Profile</h4>
+          <form method="POST" action="" class="prof-edit-form">
+              <h2 class="title">Edit profile</h2>
+                <div class="form-row">
                     <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4"></legend>
+                                {% csrf_token %}
 
-                            {{ p_form|crispy }}
-                    </fieldset>
-                        <div class="form-group">
-                            <button style="color: black;background:yellow" class="btn btn-outline-info" type="submit">Update</button>
-                        </div>
+                                {{ p_form|crispy }}
+                            <button class="btn btn-outline-info" type="submit"
+                                    style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">Update
+                            </button>
                     </form>
                 </div>
-                </div>
-             </div>
+          </form>
+
         </div>
-</div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>Want to update your profile?</h3>
+            <p>
+
+            </p>
+            <button class="btn transparent" id="edit-btn">
+              Edit Profile
+            </button>
+          </div>
+          <img src="../../media/img/prof_edit.svg" class="image" alt="" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Go back to profile info</h3>
+            <p>
+
+            </p>
+            <button class="btn transparent" id="profile-btn">
+              Profile
+            </button>
+          </div>
+          <img src="../../media/img/prof_info.svg" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script src="../../static/js/profile.js"></script>
+  </body>
 </html>
+{% endblock %}
