@@ -1,10 +1,10 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static  'css/home.css' %}">
+    {% block css %}{% endblock %}
 </head>
 <body>
     <div class="body_block">
@@ -17,7 +17,7 @@
                 <div class="header_item hraderbutton"><a href="{% url 'all_products' %}" class="part_header_a" >Products</a></div>
                 <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Promotion</a></div>
                 <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Delivery & Payment</a></div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a" >About</a></div>
+                <div class="header_item hraderbutton"><a href="{% url 'about' %}" class="part_header_a" >About</a></div>
             </div>
             <div class="header__section">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,8 @@
                 {% endif %}
             </div>
         </div>
+        {% block main %}{% endblock %}
     </div>
-    {% block  login %}{% endblock %}
+    {% block js %}{% endblock %}
 </body>
 </html>
