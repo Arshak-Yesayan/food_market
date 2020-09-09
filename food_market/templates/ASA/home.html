@@ -10,7 +10,7 @@ ASA
 {% endblock %}
 
 {% block main %}
-<div class="search_block">
+<div class="search_block color_changeable">
     <div class="search_sub">
         <form action="{% url 'all_products' %}" name="search" method="GET">
             <label class="chgidem" >Search</label>
@@ -60,11 +60,11 @@ ASA
 <div class="side">
     <ul class="menu">
     {% for category in categories %}
-        <li class="menu_list"><a href="{% url 'category' category.0.name %}">{{ category.0.name }}</a>
+        <li class="menu_list color_changeable"><a href="{% url 'category' category.0.name %}">{{ category.0.name }}</a>
         <ul class="menu_sub">
         {% for subcategories in category.1 %}
             {% for subcategory in subcategories %}
-                <li><a href="{% url 'subcategory' subcategory.name %}">{{ subcategory.name }}</a></li>
+                <li class="color_changeable"><a href="{% url 'subcategory' subcategory.name %}">{{ subcategory.name }}</a></li>
             {% endfor %}
         {% endfor %}
         </ul>
@@ -72,4 +72,8 @@ ASA
     {% endfor %}
     </ul>
 </div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/change_color.js' %}"></script>
 {% endblock %}

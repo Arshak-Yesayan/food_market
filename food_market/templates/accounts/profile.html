@@ -86,7 +86,7 @@
               Edit Profile
             </button>
           </div>
-          <img src="../../media/img/prof_edit.svg" class="image" alt="" />
+          <img src="{{ MEDIA_URL }}img/prof_edit.svg" class="image" alt="" />
         </div>
         <div class="panel right-panel">
           <div class="content">
@@ -98,12 +98,13 @@
               Profile
             </button>
           </div>
-          <img src="../../media/img/prof_info.svg" class="image" alt="" />
+          <img src="{{ MEDIA_URL }}img/prof_info.svg" class="image" alt="" />
         </div>
       </div>
     </div>
 
-    <script src="../../static/js/profile.js"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/change_color.js' %}"></script>
   </body>
 </html>
 {% endblock %}

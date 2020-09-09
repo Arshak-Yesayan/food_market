@@ -10,7 +10,7 @@ ASA products
 {% endblock %}
 
 {% block main %}
-    <div class="search_block">
+    <div class="search_block color_changeable">
         <div class="search_sub">
             <form action="{% url 'all_products' %}" name="search" method="GET">
                 <label class="chgidem" >Search</label>
@@ -46,9 +46,10 @@ ASA products
                     <a href="spec/{{ product.0.title }}">
                         <h3>{{ product.0.title }}</h3><br>
                         <img src="{{ product.0.image.url }}" width="200px"><br>
-                        <p>{{ product.0.description }}</p><br>
-                        <p>Price: {{ product.0.price }}</p><br>
                     </a>
+                    <p>{{ product.0.description }}</p><br>
+                    <p>Price: {{ product.0.price }}</p><br>
+                    <div class="like_dislike">
                     {% if product.1 %}
                         <img id="like_picture_{{ product.0.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')" style="visibility: hidden; position: absolute;">
                         <img id="like_picture_colored_{{ product.0.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')">
@@ -64,7 +65,8 @@ ASA products
                         <img id="dislike_picture_{{ product.0.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')">
                         <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
                     {% endif %}
-                    <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p><br>
+                    <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p>
+                    </div>
                     <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
                 </div>
         {% endfor %}

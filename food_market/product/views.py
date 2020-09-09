@@ -32,18 +32,11 @@ def all_products(request):
         else:
             search_form = 'WHERE ' + ' AND '.join(where_search)
 
-        if sort_by == 'name':
-            sort_tag = 'title'
-            sort_way = 'ASC'
-        elif sort_by == 'popular':
-            sort_tag = 'likes'
-            sort_way = 'DESC'
-        elif sort_by == 'price_hl':
-            sort_tag = 'price'
-            sort_way = 'DESC'
-        elif sort_by == 'price_lh':
-            sort_tag = 'price'
-            sort_way = 'ASC'
+        sort_dict = {'name': ['title', 'ASC'], 'popular': ['likes', 'DESC'], 'price_hl': ['price', 'DESC'], 'price_lh': ['price', 'ASC']}
+
+        if sort_by in sort_dict.keys():
+            sort_tag = sort_dict[sort_by][0]
+            sort_way = sort_dict[sort_by][1]
         else:
             redirect('all_products')
 

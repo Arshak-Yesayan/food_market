@@ -32,7 +32,6 @@ body{
 .header{
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     font-family: Arial;
     height: 67px;
     width: 1300px;
@@ -73,7 +72,6 @@ body{
 
 /*appearance style side-menu */
 .menu a{
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     color: white;
     padding: 10px;
     display: block;
@@ -123,7 +121,6 @@ body{
 .search_block{
     width: 900px;
     height: 50px;
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     display:flex ;
     float: right;
     margin-top: 18px;
