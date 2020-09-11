@@ -17,9 +17,11 @@
         {% if user.is_authenticated %}
         <div class="header_item hraderbutton"><a href="{% url 'profile' %}" class="part_header_a">{{ user.username }}</a></div>
         <div class="header_item hraderbutton"><a href="{% url 'logout' %}" class="part_header_a">Log out</a></div>
+        <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Cart</a></div>
         {% else %}
         <div class="header_item hraderbutton"><a href="{% url 'login' %}" class="part_header_a" >Sign In</a></div>
         <div class="header_item hraderbutton"><a href="{% url 'register' %}" class="part_header_a" >Sign Up</a></div>
+        <div class="header_item hraderbutton"><a href="#"  >Cart</a></div>
         {% endif %}
     </div>
 </header>

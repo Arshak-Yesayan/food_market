@@ -68,6 +68,20 @@ ASA products
                     <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p>
                     </div>
                     <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
+
+                    <form id="form_buying_product" class="form-inline">
+                        <input type="number" class="form-control">
+                        <button type="button" class="btn btn-success btn-buy"
+
+                        data-product_id = "{{ product.0.id }}"
+                        data-product_name = "{{ product.0.title }}"
+                        data-product_price = "{{ product.0.price }}"
+
+                        >
+                            Cart
+                        </button>
+                    </form>
+
                 </div>
         {% endfor %}
     {% endif %}
