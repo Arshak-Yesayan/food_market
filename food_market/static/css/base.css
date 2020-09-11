@@ -33,10 +33,11 @@ header {
 }
 
 footer {
-    width: 1300px;
+    position: relative;
+    margin-top: -180px; /* negative value of footer height */
     height: 100px;
-    margin: auto;
-    margin-bottom: 10px;
+    clear: both;
+    top: 5%;
 }
 
 table {

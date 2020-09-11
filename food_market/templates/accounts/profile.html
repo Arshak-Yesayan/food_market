@@ -36,19 +36,19 @@
                 <h4>
                     <label>First Name:</label>
                 </h4>
-                <i class="fas profile">{{user.profile.first_name}}</i>
+                <i class="fas profile">{{user.first_name}}</i>
                 </div>
                 <div class="input-field">
                 <h4>
                     <label>Last Name:</label>
                 </h4>
-                <i class="fas profile">{{user.profile.last_name}}</i>
+                <i class="fas profile">{{user.last_name}}</i>
                 </div>
                 <div class="input-field">
                     <h4>
                     <label>Email:</label>
                     </h4>
-                <i class="fas profile">{{user.profile.email}}</i>
+                <i class="fas profile">{{user.email}}</i>
                 </div>
                 <div class="input-field">
                 <h4>
@@ -63,7 +63,7 @@
                 <div class="form-row">
                     <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-
+                                {{ u_form|crispy }}
                                 {{ p_form|crispy }}
                             <button class="btn btn-outline-info" type="submit"
                                     style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">Update
