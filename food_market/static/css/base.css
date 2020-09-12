@@ -33,11 +33,7 @@ header {
 }
 
 footer {
-    position: relative;
-    margin-top: -180px; /* negative value of footer height */
     height: 100px;
-    clear: both;
-    top: 5%;
 }
 
 table {
@@ -50,4 +46,8 @@ table {
     margin: 0;
     display: inline-block;
     font-size: 24px;
+}
+
+#about {
+    background-color: rgba(180, 180, 180, 0.5);
 }

@@ -20,7 +20,7 @@
     <div class="container">
       <div class="forms-container">
         <div class="profile-edit">
-          <form action="#" class="prof-form">
+          <form action="#" class="prof-form" id="no-edit">
               <div class="profile-img">
                     <img src="{{user.profile.photo.url}}"
                          width="30%" align="center"  hspace="10%" vspace="120%" alt="Profile image"/>
@@ -58,7 +58,7 @@
                 </div>
           </form>
 
-          <form method="POST" action="" class="prof-edit-form">
+          <form method="POST" action="" class="prof-edit-form" id="edit">
               <h2 class="title">Edit profile</h2>
                 <div class="form-row">
                     <form method="POST" enctype="multipart/form-data">
