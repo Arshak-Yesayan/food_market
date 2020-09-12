@@ -17,12 +17,12 @@ function change_color(name) {
 function hide() {
     if( hiden ) {
         hiden = false;
-        p_hide.innerHTML = '>>';
+        p_hide.innerHTML = '»';
         color_control.style.right = "0px";
     }
     else {
         hiden = true;
-        p_hide.innerHTML = '<<';
+        p_hide.innerHTML = '«';
         color_control.style.right = "-110px";
     }
 }

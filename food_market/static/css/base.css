@@ -49,8 +49,9 @@ table {
     height: 30px;
     width: 80px;
     text-align: center;
-    font-size: 24px;
+    font-size: 36px;
     border: 15px solid #2d3e50;
+    border-top: 5px;
     border-radius: 5px;
     color: white;
     font-weight: 1000;
