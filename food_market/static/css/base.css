@@ -52,6 +52,7 @@ table {
     border: 15px solid rgb(50, 50, 50);
     border-radius: 5px;
     color: white;
+    font-weight: 1000;
 }
 
 #hide_color:hover {
