@@ -82,7 +82,7 @@ def all_products(request):
         array.append(cat)
 
     context = {'products': product_array, 'categories': array}
-    return render(request, 'product/index.html', context=context)
+    return render(request, 'product/products.html', context=context)
 
 def spec_product(request, title):
     try:
@@ -99,7 +99,7 @@ def spec_product(request, title):
         return redirect('all_products')
     category = Subcategory.objects.get(name=prod.subcategory).category
     context = {'product': prod, 'category': category, 'liked': liked, 'disliked': disliked}
-    return render(request, 'product/spec.html', context=context)
+    return render(request, 'product/product.html', context=context)
 
 def category(request, categories):
     try:
