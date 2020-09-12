@@ -1,10 +1,16 @@
-{% extends 'base_header.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
+
 {% block title %}
-         Profile
-    {% endblock %}
-{% block login %}
+Profile
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static  'css/home.css' %}">
+{% endblock %}
+
+{% block main %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">

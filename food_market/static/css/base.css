@@ -1,5 +1,4 @@
 html, body {
-    height: 100%;
     margin: 0;
 }
 
@@ -13,6 +12,8 @@ header {
 
 footer {
     height: 100px;
+    width: 1300px;
+    margin: auto;
 }
 
 table {
@@ -35,12 +36,12 @@ table {
     position: fixed;
     top: 450px;
     right: 0px;
-    border: 10px solid rgb(50, 50, 50);
+    border: 10px solid #2d3e50;
     border-radius: 5px;
 }
 
 #hide_color {
-    background-color: rgb(50, 50, 50);
+    background-color: #2d3e50;
     margin: 0;
     position: fixed;
     top: 410px;
@@ -49,7 +50,7 @@ table {
     width: 80px;
     text-align: center;
     font-size: 24px;
-    border: 15px solid rgb(50, 50, 50);
+    border: 15px solid #2d3e50;
     border-radius: 5px;
     color: white;
     font-weight: 1000;
@@ -62,7 +63,10 @@ table {
 .change_color_div {
     width: 80px;
     height: 30px;
-    border: 5px solid rgb(50, 50, 50);
+    border-top: 2px solid #2d3e50;
+    border-bottom: 2px solid #2d3e50;
+    border-left: 5px solid #2d3e50;
+    border-right: 5px solid #2d3e50;
 }
 
 .change_color_div:hover {

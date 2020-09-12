@@ -7,7 +7,7 @@ body{
 /*part the class body_block*/
 .body_block{
     width: 1300px;
-    height: auto;
+    min-height: 680px;
     padding: 0px;
     margin: auto;
 }

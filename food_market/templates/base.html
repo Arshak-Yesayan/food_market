@@ -10,12 +10,10 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <div class="body_block">
+    <main class="body_block">
         {% include 'color.html' %}
-        <main>
         {% block main %}{% endblock %}
-        </main>
-    </div>
+    </main>
     {% include 'footer.html' %}
     <script src="{% static 'js/change_color.js' %}"></script>
     {% block js %}{% endblock %}

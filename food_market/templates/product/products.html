@@ -70,7 +70,7 @@ ASA products
                     <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
 
                     <form id="form_buying_product" class="form-inline">
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" min="1" max="10" value="1">
                         <button type="button" class="btn btn-success btn-buy"
 
                         data-product_id = "{{ product.0.id }}"
