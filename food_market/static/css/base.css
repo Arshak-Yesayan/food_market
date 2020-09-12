@@ -51,6 +51,7 @@ table {
     font-size: 24px;
     border: 15px solid rgb(50, 50, 50);
     border-radius: 5px;
+    color: white;
 }
 
 #hide_color:hover {
