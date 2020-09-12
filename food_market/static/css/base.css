@@ -11,27 +11,6 @@ header {
     height: 100%;
 }
 
-.change_color {
-    position: fixed;
-    top: 40%;
-    right: 0;
-}
-
-.change_color_div {
-    width: 80px;
-    height: 30px;
-    border: 2px solid black;
-}
-
-.change_color_p {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    font-size: 24px;
-    border: 0;
-    margin: 0;
-}
-
 footer {
     height: 100px;
 }
@@ -50,4 +29,40 @@ table {
 
 #about {
     background-color: rgba(180, 180, 180, 0.5);
+}
+
+.change_color {
+    position: fixed;
+    top: 450px;
+    right: 0px;
+    border: 10px solid rgb(50, 50, 50);
+    border-radius: 5px;
+}
+
+#hide_color {
+    background-color: rgb(50, 50, 50);
+    margin: 0;
+    position: fixed;
+    top: 410px;
+    right: 0px;
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 24px;
+    border: 15px solid rgb(50, 50, 50);
+    border-radius: 5px;
+}
+
+#hide_color:hover {
+    cursor: pointer;
+}
+
+.change_color_div {
+    width: 80px;
+    height: 30px;
+    border: 5px solid rgb(50, 50, 50);
+}
+
+.change_color_div:hover {
+    cursor: pointer;
 }
