@@ -30,8 +30,10 @@ ASA Subcategory
     <img id="dislike_picture_colored_{{ product.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
 {% endif %}
 <p id="dislikes_{{ product.id }}" class="like_dislike">{{ product.dislikes }}</p><br>
+<input type="number" class="form-control" name="number" id="number_{{ product.id }}" min="1" max="10" value="1">
+<button class="btn btn-success btn-buy" onclick="add_cart({{ product.id }})">Add to Cart</button>
 
-<form id="form_buying_product" class="form-inline">
+<!-- <form id="form_buying_product" class="form-inline">
     <input type="number" class="form-control">
     <button type="button" class="btn btn-success btn-buy"
             data-product_id = "{{ product.0.id }}"
@@ -39,7 +41,7 @@ ASA Subcategory
             ata-product_price = "{{ product.0.price }}"
     >Add Cart
     </button>
-</form>
+</form> -->
 
 <a href="{% url 'category' category %}">Category - {{ category }}</a><br>
 <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a><br>
