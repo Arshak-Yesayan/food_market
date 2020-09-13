@@ -10,7 +10,7 @@ function sleep(ms) {
 
 function change_color(name) {
     for(var i = 0; i < colors.length; i++) {
-        colors[i].style.background = "linear-gradient(180deg, " + colorings[name][0] + " 0%, " + colorings[name][1] + " 25%, " + colorings[name][1] + " 75%, " + colorings[name][0] + ")";
+        colors[i].style.background = `linear-gradient(180deg, ${colorings[name][0]} 0%, ${colorings[name][1]} 25%, ${colorings[name][1]} 75%, ${colorings[name][0]})`;
     }
 }
 
@@ -30,5 +30,5 @@ function hide() {
 change_color(0);
 
 for(var x = 0; x < color_control.children.length; x++) {
-    color_control.children[x].style.background = "linear-gradient(180deg, " + colorings[x][1] + " 0%, " + colorings[x][0] + " 25%, " + colorings[x][0] + " 75%, " + colorings[x][1] + ")";
+    color_control.children[x].style.background = `linear-gradient(180deg, ${colorings[x][1]} 0%, ${colorings[x][0]} 25%, ${colorings[x][0]} 75%, ${colorings[x][1]})`;
 }

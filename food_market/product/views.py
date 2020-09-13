@@ -181,3 +181,12 @@ def like(request):
             return JsonResponse({'result': False})
     else:
         return JsonResponse({'result': False})
+
+def add_cart(request):
+    try:
+        id = request.GET['id']
+        count = request.GET['count']
+        print(id, count)
+        return JsonResponse({'result': True})
+    except:
+        return JsonResponse({'result': False})

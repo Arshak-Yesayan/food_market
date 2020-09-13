@@ -243,27 +243,6 @@ body{
     margin-right: 168px;
 }
 
-footer {
-    margin-top: 700px;
-}
-
-.basket-container{
-    position: relative;
-    width: 85px;
-    padding: 20px 0px;
-
-}
-
-.basket-items{
-    position: absolute;
-    top: 65px;
-    width: 300%;
-    background-color: #bccc16d6;
-    z-index: 10;
-    padding: 10px;
-    visibility: hidden;
-}
-
 .form-error{
     color: red;
 }
