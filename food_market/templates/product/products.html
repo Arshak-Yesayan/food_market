@@ -13,8 +13,8 @@ ASA products
     <div class="search_block color_changeable">
         <div class="search_sub">
             <form action="{% url 'all_products' %}" name="search" method="GET">
-                <label class="chgidem" >Search</label>
-                <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
+                <label class="search_label" >Search</label>
+                <input class="from" type="text" name="name" id="name" placeholder="Search by name">
                 <select class="from" name="category">
                     <option value="None">------</option>
                         {% for category in categories %}
@@ -27,25 +27,35 @@ ASA products
                             </optgroup>
                         {% endfor %}
                 </select>
-                <label class="chgidem" > Price</label>
-                <input class="to" name="from" placeholder="from">
-                <input class="to" name="to" placeholder="to">
+                <label class="search_label" > Price</label>
+                <input class="to" name="p_from" placeholder="from">
+                <input class="to" name="p_to" placeholder="to">
                 <select class="from" name="sort">
                     <option value="name">Name</option>
                     <option value="popular">Popularity</option>
                     <option value="price_lh">Price: Low to High</option>
                     <option value="price_hl">Price: High to Low</option>
                 </select>
+                <input type="number" name="page" value="1" hidden>
                 <button class="button_send" type="submit">Search</button>
             </form>
         </div>
+    </div>
+    <div id="pages">
+        {% for page in other_pages %}
+            {% if page == selected_page %}
+                <div class="selected_page"><a href="{% url 'all_products' %}" id="page_{{ page }}" class="selected_page">{{ page }}</a></div>
+            {% else %}
+                <div class="page"><a href="{% url 'all_products' %}" id="page_{{ page }}" class="page">{{ page }}</a></div>
+            {% endif %}
+        {% endfor %}
     </div>
     {% if products %}
         {% for product in products %}
             <div class="products">
                     <a href="spec/{{ product.0.title }}">
                         <h3>{{ product.0.title }}</h3><br>
-                        <img src="{{ product.0.image.url }}" width="200px"><br>
+                        <img src="{{ product.0.image.url }}" width="200px" height="200px"><br>
                     </a>
                     <p>{{ product.0.description }}</p><br>
                     <p>Price: {{ product.0.price }}</p><br>
@@ -93,5 +103,5 @@ ASA products
 
 {% block js %}
 <script src="{% static 'js/like.js' %}"></script>
-
+<script src="{% static 'js/page.js' %}"></script>
 {% endblock %}

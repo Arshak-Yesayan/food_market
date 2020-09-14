@@ -7,14 +7,22 @@ from random import randint
 
 # Create your views here.
 def all_products(request):
+    count = Product.objects.count()
+    allowed_pages = (count + 8) // 9
     try:
         name = request.GET['name']
         category_id = request.GET['category']
-        price_from = request.GET['from']
-        price_to = request.GET['to']
+        price_from = request.GET['p_from']
+        price_to = request.GET['p_to']
         sort_by = request.GET['sort']
+        page = int( request.GET['page'] )
         where_search = []
 
+        # if page <= allowed_pages:
+        #     offset = (page - 1) * 9
+        # else:
+        #     redirect('all_products', name=name, category=category_id, p_from=price_from, p_to=price_to, sort=sort_by, page=1)
+        
         if name != '':
             where_search.append(f"title LIKE '%{name}%'")
 
@@ -43,7 +51,17 @@ def all_products(request):
         else:
             redirect('all_products')
 
-        found = Product.objects.raw(f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC  LIMIT 10')
+        found = Product.objects.raw(f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC')
+
+        allowed_pages = (len(found) + 8) / 9
+
+        if page <= allowed_pages:
+            offset = (page - 1) * 9
+        else:
+            redirect('all_products', name=name, category=category_id, p_from=price_from, p_to=price_to, sort=sort_by, page=1)
+        
+        found = found[offset:offset + 9]
+
         product_array = []
         try:
             user = User.objects.get(username=request.user.username)
@@ -60,7 +78,19 @@ def all_products(request):
             for prod in found:
                 product_array.append( [prod, False, False] )
     except:
-        found = Product.objects.raw('SELECT * FROM product_product ORDER BY title COLLATE NOCASE ASC LIMIT 10')
+        try:
+            page = int( request.GET['page'] )
+        except:
+            page = 1
+        found = Product.objects.raw('SELECT * FROM product_product ORDER BY title COLLATE NOCASE ASC')
+
+        allowed_pages = (len(found) + 8) / 9
+
+        if page <= allowed_pages:
+            offset = (page - 1) * 9
+        else:
+            redirect('all_products', page=1)
+
         product_array = []
         try:
             user = User.objects.get(username=request.user.username)
@@ -76,6 +106,10 @@ def all_products(request):
         except:
             for prod in found:
                 product_array.append( [prod, False, False] )
+        
+        search = None
+    
+    other_pages = [i for i in range(page - 5, page + 6) if i > 0 and i <= allowed_pages]
     
     array = []
     categories = Category.objects.all()
@@ -84,7 +118,7 @@ def all_products(request):
         cat = [category, [subcategories]]
         array.append(cat)
 
-    context = {'products': product_array, 'categories': array}
+    context = {'products': product_array, 'categories': array, 'other_pages': other_pages, 'selected_page': page}
     return render(request, 'product/products.html', context=context)
 
 def spec_product(request, title):
