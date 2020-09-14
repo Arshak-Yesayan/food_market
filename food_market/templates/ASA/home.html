@@ -28,14 +28,15 @@ ASA
                     {% endfor %}
             </select>
             <label class="chgidem" > Price</label>
-            <input class="to" name="from" placeholder="from">
-            <input class="to" name="to" placeholder="to">
+            <input class="to" name="p_from" placeholder="from">
+            <input class="to" name="p_to" placeholder="to">
             <select class="from" name="sort">
                 <option value="name">Name</option>
                 <option value="popular">Popularity</option>
                 <option value="price_lh">Price: Low to High</option>
                 <option value="price_hl">Price: High to Low</option>
             </select>
+            <input type="number" name="page" value="1" hidden>
             <button class="button_send" type="submit">Search</button>
         </form>
     </div>

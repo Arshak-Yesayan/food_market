@@ -61,6 +61,6 @@ var like = function(id, what) {
             }
         }
     }
-    xhttp.open("GET", "/products/like?id=" + id + '&what=' + what, true);
+    xhttp.open("GET", `/products/like?id=${id}&what=${what}`, true);
     xhttp.send();
 }

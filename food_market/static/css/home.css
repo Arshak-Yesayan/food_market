@@ -243,6 +243,7 @@ body{
     margin-right: 168px;
 }
 
+
 footer {
     margin-top: 700px;
 }
@@ -262,6 +263,8 @@ footer {
     z-index: 10;
     padding: 10px;
 }
+
+
 
 .form-error{
     color: red;

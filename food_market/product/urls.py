@@ -10,4 +10,5 @@ urlpatterns = [
     path('categories/<str:categories>/', views.category, name='category'),
     path('subcategories/<str:subcategories>/', views.subcategory, name='subcategory'),
     path('like/', views.like, name='like'),
+    path('add_cart/', views.add_cart, name='add_cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
