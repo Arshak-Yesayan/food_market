@@ -15,12 +15,22 @@
     <div class="header__section">
 
         <div class="basket-container" >
-            <a class="part_header_a" href="">Cart </a>
-            <div class="basket-items hidden">
+            <a class="part_header_a" href="">Cart <span id="basket_total_nmb">
+                {% if products_total_nmb %}
+                    ({{ products_total_nmb }})
+                {% else %}
+                    (0)
+                {% endif %}
+            </span></a>
+            <div class="basket-items " style="visibility: hidden" id="bask" >
                 <ul class="">
+                    {% for product_in_basket in products_in_basket %}
                     <li>
-                        meat
+                        {{ product_in_basket.product.title }} {{ product_in_basket.nmb }} pcs.
+                        * {{ product_in_basket.price_per_item }}  = {{ product_in_basket.product_total_price }} usd.
+                        <a class="delete-item" href="" data-product_id="{{ product_in_basket.id }}">remove</a>
                     </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

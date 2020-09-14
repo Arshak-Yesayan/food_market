@@ -19,7 +19,6 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -30,7 +29,6 @@ SECRET_KEY = 'zf1*1l+qg4!6d&svw94qki46bwr*da87x9an#i3l&&@cxax9er'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -45,10 +43,10 @@ INSTALLED_APPS = [
     'ASA',
     'user_accounts',
     'product',
+    'orders',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,14 +71,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
+
+                'orders.context_processors.getting_basket_info',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'food_market.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -110,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -123,7 +121,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
