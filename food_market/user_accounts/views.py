@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 from user_accounts.models import Verification
 from django.contrib.auth.decorators import login_required
 import datetime
 from random import choice
 import string
-import emails
-from .forms import ProfileForm, UserUpdateForm
+from user_accounts.forms import ProfileForm, UserUpdateForm
 
 
 
@@ -43,23 +43,19 @@ def auth_register(requests):
                 if not User.objects.filter(email=email).exists():
                     if password1 == password2:
                         if len(password1) >= 8:
-                            user = User.objects.create_user(username=username, email=email)
+                            user = User(username=username, email=email)
                             user.set_password(password1)
                             user.is_active = False
                             date = datetime.datetime.now() + datetime.timedelta(days=1)
-                            verify = Verification.objects.create(username=user, date=date)
+                            verify = Verification(username=user, date=date)
                             token = get_random_string(16)
                             verify.token = make_password(token)
 
-                            sent = False
-                            while not sent:
-                                message = emails.html(
-                                    html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
-                                    subject="Verify your account",
-                                    mail_from=('Localhost', 'localhost@localhost.com'))
-                                r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
-                                if r.status_code == 250:
-                                    sent = True
+                            send_mail('Verify to ASA',
+                            f'Go to this link to verify {settings.DOMAIN_NAME}/accounts/verify/?username={username}&token={token}',
+                            settings.EMAIL_HOST_USER,
+                            [email],
+                            fail_silently=False)
 
                             user.save()
                             verify.save()
