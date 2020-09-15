@@ -31,11 +31,11 @@ ASA Subcategory
 {% endif %}
 <p id="dislikes_{{ product.id }}" class="like_dislike">{{ product.dislikes }}</p><br>
 
-<!-- <input type="number" class="form-control" name="number" id="number_{{ product.id }}" min="1" max="10" value="1">
-<button class="btn btn-success btn-buy" onclick="add_cart({{ product.id }})">Add to Cart</button> -->
+<input type="number" class="form-control" name="number" id="number_{{ product.id }}" min="1" max="10" value="1">
+<button class="btn btn-success btn-buy" onclick="add_cart({{ product.id }})">Add to Cart</button>
 
 
-<div>
+<!-- <div>
     <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding' %}">{% csrf_token%}
 
         <div class="form-group">
@@ -51,7 +51,7 @@ ASA Subcategory
             </button>
         </div>
     </form>
-</div>
+</div> -->
 
 
 <a href="{% url 'category' category %}">Category - {{ category }}</a><br>

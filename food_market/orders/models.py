@@ -13,7 +13,7 @@ class ProductInBasket(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-        return self.product
+        return str( self.product )
 
     class Meta:
         verbose_name = 'Product in cart'
