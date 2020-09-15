@@ -48,7 +48,7 @@ def all_products(request):
 
         found = Product.objects.raw(f'SELECT * FROM product_product {search_form} ORDER BY {sort_tag} COLLATE NOCASE {sort_way}, title COLLATE NOCASE ASC')
 
-        allowed_pages = (len(found) + 8) / 9
+        allowed_pages = (len(found) + 8) // 9
 
         if page <= allowed_pages:
             offset = (page - 1) * 9
@@ -103,8 +103,6 @@ def all_products(request):
         except:
             for prod in found:
                 product_array.append( [prod, False, False] )
-        
-        search = None
     
     other_pages = [i for i in range(page - 5, page + 6) if i > 0 and i <= allowed_pages]
     

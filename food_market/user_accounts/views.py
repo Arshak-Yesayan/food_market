@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from random import choice
 import string
-from user_accounts.forms import ProfileForm, UserUpdateForm
+from user_accounts.forms import ProfileForm, UserUpdateForm, try_register
 
 
 
@@ -23,64 +23,46 @@ def update_verification():
     users_verifications = Verification.objects.all()
     new_date = datetime.datetime.utcnow()
     for user_verification in users_verifications:
-        if datetime.datetime(user_verification.date.year, user_verification.date.month,
-                             user_verification.date.day) < new_date:
+        if datetime.datetime(user_verification.date.year, user_verification.date.month, user_verification.date.day) < new_date:
             user_account = User.objects.get(username=user_verification.username)
             user_account.delete()
 
 
 # Create your views here.
 
-def auth_register(requests):
+def auth_register(request):
     context = {'message': None}
-    if requests.method == 'POST':
-        username = requests.POST['username']
-        password1 = requests.POST['password1']
-        password2 = requests.POST['password2']
-        email = requests.POST['email']
-        if not (username == '' or password1 == '' or password2 == '' or email == ''):
-            if not User.objects.filter(username=username).exists():
-                if not User.objects.filter(email=email).exists():
-                    if password1 == password2:
-                        if len(password1) >= 8:
-                            user = User(username=username, email=email)
-                            user.set_password(password1)
-                            user.is_active = False
-                            date = datetime.datetime.now() + datetime.timedelta(days=1)
-                            verify = Verification(username=user, date=date)
-                            token = get_random_string(16)
-                            verify.token = make_password(token)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+        token = get_random_string(16)
+        date = datetime.datetime.now() + datetime.timedelta(days=1)
+        result = try_register(username, password1, password2, email, token, date)
+        if result[0]:
+            send_mail('Verify to ASA',
+            f'Go to this link to verify {settings.DOMAIN_NAME}/accounts/verify/?username={username}&token={token}',
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False)
 
-                            send_mail('Verify to ASA',
-                            f'Go to this link to verify {settings.DOMAIN_NAME}/accounts/verify/?username={username}&token={token}',
-                            settings.EMAIL_HOST_USER,
-                            [email],
-                            fail_silently=False)
-
-                            user.save()
-                            verify.save()
-                            return redirect('login')
-                        else:
-                            context['message'] = 'Passwords length is to less.'
-                    else:
-                        context['message'] = 'Passwords must be same.'
-                else:
-                    context['message'] = 'Email already exists.'
-            else:
-                context['message'] = 'Username already exists.'
+            result[1].save()
+            result[2].save()
+            return redirect('login')
         else:
-            context['message'] = 'Write something to the fields.'
-    return render(requests, 'accounts/register.html', context=context)
+            context['message'] = result[1]
+    return render(request, 'accounts/register.html', context=context)
 
 
-def verify(requests):
+def verify(request):
     context = {'verified': False}
 
     update_verification()
 
     try:
-        username = requests.GET['username']
-        token = requests.GET['token']
+        username = request.GET['username']
+        token = request.GET['token']
         user = User.objects.get(username=username)
         verify = Verification.objects.get(username=user)
         if check_password(token, verify.token):
@@ -93,27 +75,27 @@ def verify(requests):
     return render(requests, 'accounts/verify.html', context=context)
 
 
-def auth_login(requests):
+def auth_login(request):
     context = {'message': None}
-    if requests.method == 'POST':
-        if requests.POST['username'] == '' or requests.POST['password'] == '':
+    if request.method == 'POST':
+        if request.POST['username'] == '' or request.POST['password'] == '':
             context['message'] = 'Write something to the fields.'
         else:
-            username = requests.POST['username']
-            password = requests.POST['password']
+            username = request.POST['username']
+            password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(requests, user)
+                login(request, user)
                 return redirect('index')
             else:
                 context['message'] = 'Wrong username or password.'
 
-    return render(requests, 'accounts/login.html', context=context)
+    return render(request, 'accounts/login.html', context=context)
 
 
-def auth_logout(requests):
-    if requests.user.is_authenticated:
-        logout(requests)
+def auth_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
     return redirect('index')
 
 

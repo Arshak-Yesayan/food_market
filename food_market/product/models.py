@@ -28,7 +28,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_location, max_length=255, null=True, blank=True, default='product/default.png')
     likes = models.IntegerField(default=0, null=False)
     dislikes = models.IntegerField(default=0, null=False)
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, default=1)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
     price = models.IntegerField(default=0, null=False)
 
     def __str__(self):
