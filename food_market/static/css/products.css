@@ -9,3 +9,120 @@
     display: inline-block;
     margin: 2px;
 }
+
+/*header_menu*/
+.name_page{
+    font-size: 50px;
+    color: yellow;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+.part_header_a{
+    color: yellow;
+    text-decoration: none;
+}
+
+.part_header_a:hover {
+    font-weight: bold;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
+    font-family: Arial;
+    height: 67px;
+    width: 1300px;
+    margin: auto;
+    border-radius: 3px;
+}
+.header__section{
+    display: flex;
+    align-items: center;
+}
+
+.header_item{
+    padding: 10px 15px;
+    font-size:18px;
+}
+.part_header_a:hover{
+    color: yellow;
+}
+
+
+/*side menu*/
+.side {
+    padding-top: 20px;
+    width: 120px;
+    font-size: 18px;
+    margin: auto;
+}
+
+.side a {
+    text-decoration: none;
+}
+.side ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*create search panel*/
+
+.search_block{
+    width: 900px;
+    height: 50px;
+    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
+    display:flex ;
+    margin-top: 18px;
+    margin-right: auto;
+    border-radius: 3px;
+    margin-left: auto;
+}
+#chgidem{
+    border-radius: 5px;
+    height: 20px;
+    font-size: 15px;
+
+}
+.chgidem{
+    color: yellow;
+    margin-left: auto;
+    padding-right: 5px;
+}
+.search_sub{
+    margin: auto;
+    margin-left: 5px;
+}
+.to{
+   width:50px ;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 20px;
+    margin-left: 20px;
+    margin-right: 5px;
+    text-align: center;
+}
+.from{
+    width:120px;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+}
+.button_send{
+    font-size: 15px;
+    height: 25px;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 140px;
+
+}
+
+.like_dislike {
+    font-size: 36px;
+}

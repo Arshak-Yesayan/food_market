@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="body_block">
+        <div class="change_color">
+            <div class="change_color_div"><p class="change_color_p" style="background-color: green;" onclick="change_color('#20A633', '#0C7F33')">Green</p></div>
+            <div class="change_color_div"><p class="change_color_p" style="background-color: red;" onclick="change_color('#EA1515', '#8C1818')">Red</p></div>
+            <div class="change_color_div"><p class="change_color_p" style="background-color: blue;" onclick="change_color('#2E8DDC', '#064F8C')">Blue</p></div>
+            <div class="change_color_div"><p class="change_color_p" style="background-color: gray;" onclick="change_color('#B5B5B5', '#7C7C7C')">Gray</p></div>
+        </div>
+        <main>
+        {% block main %}{% endblock %}
+        </main>
+    </div>
+    {% include 'footer.html' %}
+    <script src="{% static 'js/change_color.js' %}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

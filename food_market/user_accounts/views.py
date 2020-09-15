@@ -3,28 +3,33 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
 
-from user_accounts.models import Verification
 
+from user_accounts.models import Verification
+from django.contrib.auth.decorators import login_required
 import datetime
 from random import choice
 import string
 import emails
+from .forms import ProfileForm, UserUpdateForm
+
+
 
 def get_random_string(length):
     letters = string.ascii_letters
     return ''.join(choice(letters) for i in range(length))
 
+
 def update_verification():
     users_verifications = Verification.objects.all()
     new_date = datetime.datetime.utcnow()
     for user_verification in users_verifications:
-        if datetime.datetime(user_verification.date.year, user_verification.date.month, user_verification.date.day) < new_date:
+        if datetime.datetime(user_verification.date.year, user_verification.date.month,
+                             user_verification.date.day) < new_date:
             user_account = User.objects.get(username=user_verification.username)
             user_account.delete()
 
+
 # Create your views here.
-def index(requests):
-    return render(requests, 'main/index.html')
 
 def auth_register(requests):
     context = {'message': None}
@@ -44,18 +49,19 @@ def auth_register(requests):
                             date = datetime.datetime.now() + datetime.timedelta(days=1)
                             verify = Verification.objects.create(username=user, date=date)
                             token = get_random_string(16)
-                            verify.token = make_password(token)                            
+                            verify.token = make_password(token)
 
                             sent = False
                             while not sent:
-                                message = emails.html(html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
+                                message = emails.html(
+                                    html=f"<h1>If you were logining to our site and your username is {username}, go to this link</h1><a href=\"http://localhost:8000/accounts/verify/?&username={username}&token={token}\">Verify</a>",
                                     subject="Verify your account",
                                     mail_from=('Localhost', 'localhost@localhost.com'))
                                 r = message.send(to=f'{email}', smtp={'host': 'aspmx.l.google.com', 'timeout': 5})
                                 if r.status_code == 250:
-                                    sent= True
+                                    sent = True
 
-                            user.save() 
+                            user.save()
                             verify.save()
                             return redirect('login')
                         else:
@@ -70,11 +76,12 @@ def auth_register(requests):
             context['message'] = 'Write something to the fields.'
     return render(requests, 'accounts/register.html', context=context)
 
+
 def verify(requests):
     context = {'verified': False}
 
     update_verification()
-    
+
     try:
         username = requests.GET['username']
         token = requests.GET['token']
@@ -89,6 +96,7 @@ def verify(requests):
         pass
     return render(requests, 'accounts/verify.html', context=context)
 
+
 def auth_login(requests):
     context = {'message': None}
     if requests.method == 'POST':
@@ -100,14 +108,32 @@ def auth_login(requests):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(requests, user)
-                return redirect('main')
+                return redirect('index')
             else:
                 context['message'] = 'Wrong username or password.'
 
     return render(requests, 'accounts/login.html', context=context)
 
+
 def auth_logout(requests):
     if requests.user.is_authenticated:
         logout(requests)
-        return render(requests, 'accounts/logout.html')
-    return redirect('main')
+    return redirect('index')
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileForm(request.POST,
+                             request.FILES,
+                             instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileForm()
+
+    context = {'u_form': u_form, 'p_form': p_form}
+    return render(request, 'accounts/profile.html', context)

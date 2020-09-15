@@ -1,22 +1,35 @@
-<!DOCTYPE html>
+{% extends 'base_header.html' %}
+
 {% load static %}
+{% block title %}
+         Sign Up
+    {% endblock %}
+{% block login %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <link rel="stylesheet" href="{% static  'css/login_reg.css' %}">
+
+    <title>Sign Up</title>
 </head>
 <body>
-    {% if message %}
-    <h1>{{ message }}</h1>
-    {%  endif %}
-    <form action="{% url 'register' %}" method="POST">
+
+
+    <form class="box" action="{% url 'register' %}" method="POST">
+        <h1>Sign Up</h1>
         {% csrf_token %}
         <p>Username: <input type="text" name="username" maxlength="150" required></p>
         <p>Password: <input type="password" name="password1" required></p>
         <p>Password confirm: <input type="password" name="password2" required></p>
         <p>Email: <input type="email" name="email" required></p>
+
+            {% if message %}
+        <h3 style="color:orange"> {{ message }}</h3>
+            {%  endif %}
+
         <input type="submit" value="Register">
     </form>
 </body>
 </html>
+{% endblock %}

@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
-</head>
-<body>
-    <h1>Category: {{ category.name }}</h1>
-    <h3>Categories</h3>
-    <ul>
-    {% for cat in other_cats %}
-        <li><a href="{% url 'category' cat.name %}">{{ cat.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3>Subcategories</h3>
-    <ul>
-    {% for cat in sub_cats %}
-        <li><a href="{% url 'subcategory' cat.name %}">{{ cat.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <a href="{% url 'all_products' %}" class="products">
-        To main page
-    </a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ASA Category
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static  'css/products.css' %}">
+{% endblock %}
+
+{% block main %}
+<h1>Category: {{ category.name }}</h1>
+<h3>Categories</h3>
+<ul>
+{% for cat in other_cats %}
+    <li><a href="{% url 'category' cat.name %}">{{ cat.name }}</a></li>
+{% endfor %}
+</ul>
+<h3>Subcategories</h3>
+<ul>
+{% for cat in sub_cats %}
+    <li><a href="{% url 'subcategory' cat.name %}">{{ cat.name }}</a></li>
+{% endfor %}
+</ul>
+<a href="{% url 'all_products' %}" class="products">
+    To main page
+</a>
+{% endblock %}

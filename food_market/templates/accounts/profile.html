@@ -1,0 +1,110 @@
+{% extends 'base_header.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+         Profile
+    {% endblock %}
+{% block login %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static  'css/profile.css' %}">
+    <title>Sign In</title>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="profile-edit">
+          <form action="#" class="prof-form">
+              <div class="profile-img">
+                    <img src="{{user.profile.photo.url}}"
+                         width="30%" align="center"  hspace="10%" vspace="120%" alt="Profile image"/>
+              </div>
+                    <h2 class="title">{% if user.is_authenticated %}
+                            <p>Hi {{ user.username }}!</p>
+                        {% else %}
+                            <p>You are not logged in.</p>
+                            <a href="{% url 'login' %}">Log In</a>
+                        {% endif %}
+                    </h2>
+                <div class="input-field">
+                <h4>
+                    <label>First Name:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.first_name}}</i>
+                </div>
+                <div class="input-field">
+                <h4>
+                    <label>Last Name:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.last_name}}</i>
+                </div>
+                <div class="input-field">
+                    <h4>
+                    <label>Email:</label>
+                    </h4>
+                <i class="fas profile">{{user.profile.email}}</i>
+                </div>
+                <div class="input-field">
+                <h4>
+                    <label>Date of birth:</label>
+                </h4>
+                <i class="fas profile">{{user.profile.date_of_birth}}</i>
+                </div>
+          </form>
+
+          <form method="POST" action="" class="prof-edit-form">
+              <h2 class="title">Edit profile</h2>
+                <div class="form-row">
+                    <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                {{ p_form|crispy }}
+                            <button class="btn btn-outline-info" type="submit"
+                                    style="background:linear-gradient(180deg, #20A633 0%, #0C7F33 100%);">Update
+                            </button>
+                    </form>
+                </div>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>Want to update your profile?</h3>
+            <p>
+
+            </p>
+            <button class="btn transparent" id="edit-btn">
+              Edit Profile
+            </button>
+          </div>
+          <img src="{{ MEDIA_URL }}img/prof_edit.svg" class="image" alt="" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Go back to profile info</h3>
+            <p>
+
+            </p>
+            <button class="btn transparent" id="profile-btn">
+              Profile
+            </button>
+          </div>
+          <img src="{{ MEDIA_URL }}img/prof_info.svg" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/change_color.js' %}"></script>
+  </body>
+</html>
+{% endblock %}

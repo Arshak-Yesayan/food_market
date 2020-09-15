@@ -1,69 +1,78 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products</title>
-    <link rel="stylesheet" href="{% static 'css/products.css' %}">
-</head>
-<body>
-    <p id="something">500000</p>
-    <button onclick="update_number()">Update</button>
-    <form action="" method="GET">
-        <input type="text" name="name" placeholder="Search by name">
-        <select name="category">
-            <option value="None">------</option>
-            {% for subcategory in subcategories %}
-            <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="number" name="from" placeholder="from">
-        <input type="number" name="to" placeholder="to">
-        <select name="sort">
-            <option value="title+">Name +</option>
-            <option value="likes+">Likes +</option>
-            <option value="price+">Price +</option>
-            <option value="title-">Name -</option>
-            <option value="likes-">Likes -</option>
-            <option value="price-">Price -</option>
-        </select>
-        <input type="submit" value="Search">
-    </form>
+
+{% block title %}
+ASA products
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static  'css/products.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="search_block color_changeable">
+        <div class="search_sub">
+            <form action="{% url 'all_products' %}" name="search" method="GET">
+                <label class="chgidem" >Search</label>
+                <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
+                <select class="from" name="category">
+                    <option value="None">------</option>
+                        {% for category in categories %}
+                            <optgroup label="{{ category.0.name }}">
+                            {% for subcategories in category.1 %}
+                                {% for subcategory in subcategories %}
+                                    <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            </optgroup>
+                        {% endfor %}
+                </select>
+                <label class="chgidem" > Price</label>
+                <input class="to" name="from" placeholder="from">
+                <input class="to" name="to" placeholder="to">
+                <select class="from" name="sort">
+                    <option value="name">Name</option>
+                    <option value="popular">Popularity</option>
+                    <option value="price_lh">Price: Low to High</option>
+                    <option value="price_hl">Price: High to Low</option>
+                </select>
+                <button class="button_send" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     {% if products %}
         {% for product in products %}
             <div class="products">
-                    <a href="{{ product.title }}">
-                        <h3>{{ product.title }}</h3><br>
-                        <img src="{{ product.image.url }}" width="200px"><br>
-                        <p>{{ product.description }}</p><br>
-                        <p>Likes: {{ product.likes }}</p><br>
-                        <p>Price: {{ product.price }}</p><br>
+                    <a href="spec/{{ product.0.title }}">
+                        <h3>{{ product.0.title }}</h3><br>
+                        <img src="{{ product.0.image.url }}" width="200px"><br>
                     </a>
-                    <a href="{% url 'subcategory' product.subcategory %}">Subcategory - {{ product.subcategory }}</a>
+                    <p>{{ product.0.description }}</p><br>
+                    <p>Price: {{ product.0.price }}</p><br>
+                    <div class="like_dislike">
+                    {% if product.1 %}
+                        <img id="like_picture_{{ product.0.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')" style="visibility: hidden; position: absolute;">
+                        <img id="like_picture_colored_{{ product.0.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')">
+                    {% else %}
+                        <img id="like_picture_{{ product.0.id }}" src="{% static 'images/like.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')">
+                        <img id="like_picture_colored_{{ product.0.id }}" src="{% static 'images/liked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'like')" style="visibility: hidden; position: absolute;">
+                    {% endif %}
+                    <p id="likes_{{ product.0.id }}" class="like_dislike">{{ product.0.likes }}</p>
+                    {% if product.2 %}
+                        <img id="dislike_picture_{{ product.0.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+                        <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')">
+                    {% else %}
+                        <img id="dislike_picture_{{ product.0.id }}" src="{% static 'images/dislike.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')">
+                        <img id="dislike_picture_colored_{{ product.0.id }}" src="{% static 'images/disliked.png' %}" width="30" height="30" onclick="like({{ product.0.id }}, 'dislike')" style="visibility: hidden; position: absolute;">
+                    {% endif %}
+                    <p id="dislikes_{{ product.0.id }}" class="like_dislike">{{ product.0.dislikes }}</p>
+                    </div>
+                    <a href="{% url 'subcategory' product.0.subcategory %}">Subcategory - {{ product.0.subcategory }}</a>
                 </div>
         {% endfor %}
     {% endif %}
-    <script>
-        var number = '500000';
+{% endblock %}
 
-        function update_number() {
-            number = '500000';
-        }
-        
-        function loadDoc() {
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                number = JSON.parse(this.responseText)['number'];
-              document.getElementById("something").innerHTML = number;
-            }
-          };
-          xhttp.open("GET", "get_json?number=" + number, true);
-          xhttp.send();
-        }
-
-        setInterval(loadDoc, 100);
-    </script>
-</body>
-</html>
+{% block js %}
+<script src="{% static 'js/like.js' %}"></script>
+{% endblock %}

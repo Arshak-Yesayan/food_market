@@ -1,5 +1,8 @@
 body{
-    background-image: url("../images/background_body.jpg");
+
+    background-size: 100%;
+    background-repeat: repeat-y;
+
 }
 
 /*part the class body_block*/
@@ -22,10 +25,14 @@ body{
     color: yellow;
     text-decoration: none;
 }
+
+.part_header_a:hover {
+    font-weight: bold;
+}
+
 .header{
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     font-family: Arial;
     height: 67px;
     width: 1300px;
@@ -66,7 +73,6 @@ body{
 
 /*appearance style side-menu */
 .menu a{
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     color: white;
     padding: 10px;
     display: block;
@@ -74,12 +80,15 @@ body{
     transition: 0.5s all;
 }
 .menu a:hover {
-    background: #056A35;
+    background: #BBB700;
 }
 /*popup part of menu */
 
 .menu_list{
+    width: 180px;
+    height: 42px;
     position: relative;
+
 }
 .menu_sub{
     position: absolute;
@@ -113,7 +122,6 @@ body{
 .search_block{
     width: 900px;
     height: 50px;
-    background: linear-gradient(180deg, #20A633 0%, #0C7F33 100%);
     display:flex ;
     float: right;
     margin-top: 120px;
@@ -236,3 +244,14 @@ body{
     margin-right: 168px;
 }
 
+h3 {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.33);
+    margin-left: auto;
+    margin-right: auto;
+    width: 1300px;
+}
+
+footer {
+    margin-top: 700px;
+}

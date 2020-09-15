@@ -1,176 +1,79 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Home</title>
-        <link rel="stylesheet" href="{% static  'css/home.css' %}" />
-        <link rel="stylesheet" href="home.css">
 
-    </head>
-    <body>
+{% block title %}
+ASA
+{% endblock %}
 
-    <div class="body_block">
-        <div class="header">
-            <div class="header__section">
-                <div class="header_item headerlogo">
-                    <a href="#" class="name_page hraderbutton">ASA</a>
-                </div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a">Home</a></div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Products</a></div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a" >About</a></div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Bfan</a></div>
-                <div class="header_item hraderbutton"><a href="#" class="part_header_a" >Befn</a></div>
-            </div>
-            <div class="header__section">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-         <circle cx="9" cy="4" r="3.25" stroke="white" stroke-width="1.5"></circle>
-         <path d="M17 18V15C17 12.7909 15.2091 11 13 11H5C2.79086 11 1 12.7909 1 15V18" stroke="white" stroke-width="1.5"></path>
-         </svg>
-                <div class="header_item hraderbutton"><a href="accounts/login/" class="part_header_a" >Sign In</a></div>
-                <div class="header_item hraderbutton"><a href="accounts/register" class="part_header_a" >Sign Up</a></div>
+{% block css %}
+<link rel="stylesheet" href="{% static  'css/home.css' %}">
+{% endblock %}
 
-
-            </div>
-
-
-        </div>
-        <div class="search_block">
-            <div class="search_sub">
-                <form action="#" name="search" method="GET">
-                    <label class="chgidem" >Search</label>
-                    <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
-                    <select class="from" name="category">
-                        <option value="None">------</option>
+{% block main %}
+<div class="search_block color_changeable">
+    <div class="search_sub">
+        <form action="{% url 'all_products' %}" name="search" method="GET">
+            <label class="chgidem" >Search</label>
+            <input class="from" type="text" name="name" id="chgitem" placeholder="Search by name">
+            <select class="from" name="category">
+                <option value="None">------</option>
+                    {% for category in categories %}
+                        <optgroup label="{{ category.0.name }}">
+                        {% for subcategories in category.1 %}
                             {% for subcategory in subcategories %}
-                        <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                                <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
                             {% endfor %}
-                    </select>
-                    <label class="chgidem" > Price</label>
-                    <input class="to" name="from" placeholder="from-">
-                    <input class="to" name="to" placeholder="-to">
-                    <select class="from" name="sort">
-                        <option value="title+">Name +</option>
-                        <option value="likes+">Likes +</option>
-                        <option value="price+">Price +</option>
-                        <option value="title-">Name -</option>
-                        <option value="likes-">Likes -</option>
-                        <option value="price-">Price -</option>
-                    </select>
-                    <button name="button_send" class="button_send" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-        <div class="all_slider">
-            <div class="slider-holder">
-            <span id="slider-image-1"></span>
-            <span id="slider-image-2"></span>
-            <span id="slider-image-3"></span>
-            <div class="image-holder">
-                <img src="{{ MEDIA_URL }}image1.jpg" class="slider-image" />
-                <img src="{{ MEDIA_URL }}image2.jpg" class="slider-image" />
-                <img src="{{ MEDIA_URL }}image3.jpg" class="slider-image" />
-            </div>
-            <div class="button-holder">
-                <a href="#slider-image-1" class="slider-change"></a>
-                <a href="#slider-image-2" class="slider-change"></a>
-                <a href="#slider-image-3" class="slider-change"></a>
-            </div>
-        </div>
-        </div>
-        <div class="side">
-            <ul class="menu">
-                <li class="menu_list"><a href="#">point 1</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 2</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 3</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 4</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 5</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 6</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#">point 7</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-                <li class="menu_list"><a href="#" >point 8</a>
-                    <ul class="menu_sub">
-                        <li><a href="#">subpoint 1</a></li>
-                        <li><a href="#">subpoint 2</a></li>
-                        <li><a href="#">subpoint 3</a></li>
-                        <li><a href="#">subpoint 4</a></li>
-                        <li><a href="#">subpoint 5</a></li>
-                        <li><a href="#">subpoint 6</a></li>
-                        <li><a href="#">subpoint 7</a></li>
-                        <li><a href="#">subpoint 8</a></li>
-                    </ul></li>
-            </ul>
-        </div>
-
+                        {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+            </select>
+            <label class="chgidem" > Price</label>
+            <input class="to" name="from" placeholder="from">
+            <input class="to" name="to" placeholder="to">
+            <select class="from" name="sort">
+                <option value="name">Name</option>
+                <option value="popular">Popularity</option>
+                <option value="price_lh">Price: Low to High</option>
+                <option value="price_hl">Price: High to Low</option>
+            </select>
+            <button class="button_send" type="submit">Search</button>
+        </form>
     </div>
+</div>
+<div class="all_slider">
+    <div class="slider-holder">
+    <span id="slider-image-1"></span>
+    <span id="slider-image-2"></span>
+    <span id="slider-image-3"></span>
+    <div class="image-holder">
+        <img src="{{ MEDIA_URL }}image1.jpg" class="slider-image">
+        <img src="{{ MEDIA_URL }}image2.jpg" class="slider-image">
+        <img src="{{ MEDIA_URL }}image3.jpg" class="slider-image">
+    </div>
+    <div class="button-holder">
+        <a href="#slider-image-1" class="slider-change"></a>
+        <a href="#slider-image-2" class="slider-change"></a>
+        <a href="#slider-image-3" class="slider-change"></a>
+    </div>
+</div>
+</div>
+<div class="side">
+    <ul class="menu">
+    {% for category in categories %}
+        <li class="menu_list color_changeable"><a href="{% url 'category' category.0.name %}">{{ category.0.name }}</a>
+        <ul class="menu_sub">
+        {% for subcategories in category.1 %}
+            {% for subcategory in subcategories %}
+                <li class="color_changeable"><a href="{% url 'subcategory' subcategory.name %}">{{ subcategory.name }}</a></li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
 
-
-
-    </body>
-</html>
+{% block js %}
+<script src="{% static 'js/change_color.js' %}"></script>
+{% endblock %}
