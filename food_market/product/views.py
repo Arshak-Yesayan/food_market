@@ -3,12 +3,11 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 
 from product.models import Product, Category, Subcategory, Like
+from orders.models import ProductInBasket
 from random import randint
 
 # Create your views here.
 def all_products(request):
-    count = Product.objects.count()
-    allowed_pages = (count + 8) // 9
     try:
         name = request.GET['name']
         category_id = request.GET['category']
@@ -16,23 +15,19 @@ def all_products(request):
         price_to = request.GET['p_to']
         sort_by = request.GET['sort']
         page = int( request.GET['page'] )
-        where_search = []
 
-        # if page <= allowed_pages:
-        #     offset = (page - 1) * 9
-        # else:
-        #     redirect('all_products', name=name, category=category_id, p_from=price_from, p_to=price_to, sort=sort_by, page=1)
+        where_search = []
         
-        if name != '':
+        if name != '' and name != 'undefined':
             where_search.append(f"title LIKE '%{name}%'")
 
-        if category_id.isdigit() and category_id != '':
+        if category_id.isdigit() and category_id != '' and category_id != 'undefined':
             where_search.append(f'subcategory_id = {category_id}')
 
-        if price_from != '':
+        if price_from != '' and price_from != 'undefined':
             where_search.append(f'price >= {price_from}')
 
-        if price_to != '':
+        if price_to != '' and price_to != 'undefined':
             where_search.append(f'price <= {price_to}')
         
         if len(where_search) == 0:
@@ -90,6 +85,8 @@ def all_products(request):
             offset = (page - 1) * 9
         else:
             redirect('all_products', page=1)
+        
+        found = found[offset:offset + 9]
 
         product_array = []
         try:
@@ -233,10 +230,15 @@ def product(request, product_id):
 
 def add_cart(request):
     try:
-        id = request.GET['id']
-        count = request.GET['count']
-        print(id, count)
+        id = int( request.GET['id'] )
+        count = int( request.GET['count'] )
+
+        prod = Product.objects.get(id=id)
+
+        product_in_basket_data = {'session_key': request.session.session_key, 'product': prod, 'nmb': count, 'price_per_item': prod.price, 'total_price': prod.price * count}
+
+        ProductInBasket.objects.create(**product_in_basket_data)
+
         return JsonResponse({'result': True})
     except:
         return JsonResponse({'result': False})
-

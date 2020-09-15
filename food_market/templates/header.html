@@ -15,13 +15,13 @@
     <div class="header__section">
 
         <div class="basket-container" >
-            <a class="part_header_a" href="">Cart <span id="basket_total_nmb">
+            <a class="part_header_a" href="">Cart (<span id="basket_total_nmb">
                 {% if products_total_nmb %}
-                    ({{ products_total_nmb }})
+                    {{ products_total_nmb }}
                 {% else %}
-                    (0)
+                    0
                 {% endif %}
-            </span></a>
+            </span>)</a>
             <div class="basket-items " style="visibility: hidden" id="bask" >
                 <ul class="">
                     {% for product_in_basket in products_in_basket %}
