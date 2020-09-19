@@ -27,7 +27,7 @@
                     {% for product_in_basket in products_in_basket %}
                     <li>
                         {{ product_in_basket.product.title }} {{ product_in_basket.nmb }} pcs.
-                        * {{ product_in_basket.price_per_item }}  = {{ product_in_basket.product_total_price }} usd.
+                        * {{ product_in_basket.price_per_item }}  = {{ product_in_basket.total_price }} usd.
                         <a class="delete-item" href="" data-product_id="{{ product_in_basket.id }}">remove</a>
                     </li>
                     {% endfor %}
@@ -53,4 +53,7 @@
     {% block js %}
 
     {% endblock %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}" ></script>
 </header>
